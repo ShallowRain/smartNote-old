@@ -26,7 +26,6 @@ import cn.rainss.smartNote.utils.sdkinit.ANRWatchDogInit;
 import cn.rainss.smartNote.utils.sdkinit.UMengInit;
 import cn.rainss.smartNote.utils.sdkinit.XBasicLibInit;
 import cn.rainss.smartNote.utils.sdkinit.XUpdateInit;
-import cn.rainss.smartNote.BuildConfig;
 
 /**
  * @author xuexiang

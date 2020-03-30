@@ -36,6 +36,11 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_person"
             android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/nav_more"
+            android:icon="@drawable/ic_menu_person"
+            android:title="@string/menu_more" />
+
 
 
     </group>

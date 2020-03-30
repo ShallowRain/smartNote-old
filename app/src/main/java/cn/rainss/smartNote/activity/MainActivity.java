@@ -239,7 +239,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (index != -1) {
             toolbar.setTitle(menuItem.getTitle());
             viewPager.setCurrentItem(index, false);
-
             updateSideNavStatus(menuItem);
             return true;
         }
