@@ -36,9 +36,6 @@ import java.util.List;
 
 /**
  * 首页动态新闻【只是用于演示效果】
- *
- * @author XUE
- * @since 2019/5/9 10:41
  */
 public class NewsCardViewListAdapter extends BaseRecyclerAdapter<NewInfo> {
 

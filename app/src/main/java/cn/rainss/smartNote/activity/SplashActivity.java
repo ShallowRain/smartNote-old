@@ -29,10 +29,7 @@ import com.xuexiang.xutil.app.ActivityUtils;
 import me.jessyan.autosize.internal.CancelAdapt;
 
 /**
- * 启动页【无需适配屏幕大小】
- *
- * @author xuexiang
- * @since 2019-06-30 17:32
+ * 启动页面[不需要适配屏幕的大小]
  */
 public class SplashActivity extends BaseSplashActivity implements CancelAdapt {
 

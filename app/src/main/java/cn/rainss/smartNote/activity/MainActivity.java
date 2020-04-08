@@ -18,6 +18,7 @@
 package cn.rainss.smartNote.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import cn.rainss.smartNote.fragment.AboutFragment;
 import cn.rainss.smartNote.fragment.SettingsFragment;
+import cn.rainss.smartNote.fragment.TypeFragment;
+import cn.rainss.smartNote.fragment.more.MoreFragment;
 import cn.rainss.smartNote.fragment.news.NewsFragment;
 import cn.rainss.smartNote.fragment.profile.ProfileFragment;
 import cn.rainss.smartNote.fragment.trending.TrendingFragment;
@@ -110,7 +113,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         BaseFragment[] fragments = new BaseFragment[]{
                 new NewsFragment(),
                 new TrendingFragment(),
-                new ProfileFragment()
+                new ProfileFragment(),
+                new MoreFragment()
         };
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getSupportFragmentManager(), fragments);
         viewPager.setOffscreenPageLimit(mTitles.length - 1);
@@ -128,7 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         // TODO: 2019-10-09 初始化数据
         ivAvatar.setImageResource(R.drawable.ic_default_head);
         tvAvatar.setText(R.string.app_name);
-        tvSign.setText("这个家伙很懒，什么也没有留下～～");
+        tvSign.setText("暂时还没有想好要写啥～～");
 
         navHeader.setOnClickListener(this);
     }
@@ -150,6 +154,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         break;
                     case R.id.nav_about:
                         openNewPage(AboutFragment.class);
+                        break;
+                    case R.id.nav_type:
+                        //侧边栏点击分类按钮
+                        XToastUtils.toast("测试用的通知消息");
+                        openNewPage(TypeFragment.class);
                         break;
                     default:
                         XToastUtils.toast("点击了:" + menuItem.getTitle());
@@ -239,6 +248,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (index != -1) {
             toolbar.setTitle(menuItem.getTitle());
             viewPager.setCurrentItem(index, false);
+            //更新底部导航栏选中状态
             updateSideNavStatus(menuItem);
             return true;
         }
