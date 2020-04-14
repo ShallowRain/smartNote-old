@@ -2,6 +2,7 @@ package cn.rainss.smartNote.fragment;
 
 import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
@@ -52,39 +53,24 @@ public class TypeFragment extends BaseFragment {
      */
     private void showInputDialog() {
         new MaterialDialog.Builder(getContext())
-                .iconRes(R.drawable.icon_warning)
-                .title(R.string.tip_warning)
-                .content(R.string.content_warning)
-                .inputType(
-                        InputType.TYPE_CLASS_TEXT
-                                | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                                | InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .input(
-                        getString(R.string.hint_please_input_password),
-                        "",
-                        false,
-                        (new MaterialDialog.InputCallback() {
-                            @Override
-                            public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                XToastUtils.toast(input.toString());
-                            }
-                        }))
-                .inputRange(3, 5)
-                .positiveText(R.string.lab_continue)
-                .negativeText(R.string.lab_change)
+                .customView(R.layout.toast_add_type, true)
+                .title("提示")
+                .positiveText(R.string.type_add_btn)
+                .negativeText(R.string.type_cancel_btn)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        XToastUtils.toast("你输入了:" + dialog.getInputEditText().getText().toString());
+                        EditText type_name = dialog.getCustomView().findViewById(R.id.type_name_text);
+                        //这里进行入库操作
+                        XToastUtils.toast(type_name.getText().toString());
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        XToastUtils.toast("取消了");
+                        XToastUtils.toast(R.string.add_type_cancel);
                     }
                 })
-                .cancelable(false)
                 .show();
     }
 }

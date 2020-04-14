@@ -44,10 +44,8 @@
     <!-- 分类相关的字符 -->
     <string name="menu_type">分类</string>
     <string name="type_add_btn">添加</string>
-    <string name="tip_warning">警告</string>
-    <string name="content_warning">当前为开发环境，是否切换到真实环境？</string>
-    <string name="hint_please_input_password">请输入密码</string>
-    <string name="lab_change">切换</string>
-    <string name="lab_continue">继续</string>
+    <string name="type_cancel_btn">取消</string>
+    <string name="content_warning">请填写分类名称！</string>
+    <string name="add_type_cancel">分类添加取消！</string>
 
 </resources>

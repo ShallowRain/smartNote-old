@@ -24,6 +24,10 @@
     <com.xuexiang.xui.widget.searchview.MaterialSearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="侧爱上了尽快恢复即可拉伸的房间卡沙发上尽量快点恢复健康拉横幅金坷垃凤凰健康"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/type_add"
