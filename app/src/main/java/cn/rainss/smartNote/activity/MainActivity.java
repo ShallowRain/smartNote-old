@@ -156,8 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         openNewPage(AboutFragment.class);
                         break;
                     case R.id.nav_type:
-                        //侧边栏点击分类按钮
-                        XToastUtils.toast("测试用的通知消息");
+                        //打开分类页面的Fragment
                         openNewPage(TypeFragment.class);
                         break;
                     default:

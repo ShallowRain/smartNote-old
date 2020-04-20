@@ -1,40 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2019 xuexiangjys(xuexiangjys@163.com)
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~       http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  ~
-  -->
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.xuexiang.xui.widget.searchview.MaterialSearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_navigation_back_white"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="分类管理"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/include_recycler_view_type_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/type_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="?attr/xui_config_content_spacing_horizontal"
-        android:src="@drawable/icon_warning" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/spacing_16"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_behavior="cn.rainss.smartNote.behavior.FloatButton" />
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
