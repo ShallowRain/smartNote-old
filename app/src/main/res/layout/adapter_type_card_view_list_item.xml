@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="0dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="2dp"
     app:cardBackgroundColor="@color/xui_config_color_white"
     app:cardCornerRadius="3dp"
     app:cardElevation="4dp"
@@ -60,7 +60,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="0dp">
             <TextView
                 android:id="@+id/type_id"
                 android:layout_width="wrap_content"
@@ -73,7 +73,5 @@
                 android:text="创建时间" />
 
         </FrameLayout>
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

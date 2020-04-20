@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.xuexiang.xpage.annotation.Page;
+import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.recyclerview.XLinearLayoutManager;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
@@ -45,8 +47,8 @@ public class TypeFragment extends BaseFragment {
     /**
      * 顶部数据
      */
-    @BindView(R.id.toolbar_recycler_view)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar_recycler_view)
+//    Toolbar toolbar;
     @BindView(R.id.recyclerView)
     SwipeRecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout)
@@ -135,16 +137,16 @@ public class TypeFragment extends BaseFragment {
                 addTypeDialog();
             }
         });
-        // 设置顶部返回按钮点击事件
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popToBack();
-            }
-        });
         // 刷新监听。
         swipeRefreshLayout.setOnRefreshListener(mRefreshListener);
         refresh();
+        //监听列表点击事件
+       mAdapter.setOnItemClickListener(new RecyclerViewHolder.OnItemClickListener<Type>() {
+           @Override
+           public void onItemClick(View itemView, Type item, int position) {
+                XToastUtils.toast(item.getName()+"\n"+item.getId());
+           }
+       });
     }
     /**
      * 刷新。
