@@ -12,5 +12,9 @@
     <color name="toast_success_color" tools:ignore="PrivateResource">#388E3C</color>
     <color name="toast_warning_color" tools:ignore="PrivateResource">@color/xui_config_color_waring</color>
     <color name="toast_normal_tint_color" tools:ignore="PrivateResource">#353A3E</color>
-
+    <!-- 操作按钮的颜色 -->
+    <color name="red_normal">#FF0000</color>
+    <color name="red_pressed">#FF6666</color>
+    <color name="green_normal">#37C000</color>
+    <color name="green_pressed">#30A070</color>
 </resources>

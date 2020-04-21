@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
     android:layout_marginTop="3dp"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
     android:layout_marginBottom="2dp"
     app:cardBackgroundColor="@color/xui_config_color_white"
     app:cardCornerRadius="3dp"
     app:cardElevation="4dp"
     app:cardPreventCornerOverlap="true"
-    app:contentPaddingTop="5dp"
     app:contentPaddingBottom="10dp"
     app:contentPaddingLeft="@dimen/activity_horizontal_margin"
-    app:contentPaddingRight="@dimen/activity_horizontal_margin">
+    app:contentPaddingRight="@dimen/activity_horizontal_margin"
+    app:contentPaddingTop="5dp">
 
     <LinearLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,8 +43,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -61,11 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp">
+
             <TextView
                 android:id="@+id/type_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/type_time"
                 style="@style/TextStyle.Explain"
@@ -74,4 +79,6 @@
 
         </FrameLayout>
     </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="activity_horizontal_margin">5dp</dimen>
+    <dimen name="dp_55">55dp</dimen>
 </resources>

@@ -47,5 +47,6 @@
     <string name="type_cancel_btn">取消</string>
     <string name="content_warning">请填写分类名称！</string>
     <string name="add_type_cancel">分类添加取消！</string>
+    <string name="delete">刪除</string>
 
 </resources>
