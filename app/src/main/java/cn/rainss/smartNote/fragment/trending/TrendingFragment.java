@@ -24,7 +24,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 /**
- * @author xuexiang
+ *
  * @since 2019-10-30 00:19
  */
 @Page(anim = CoreAnim.none)

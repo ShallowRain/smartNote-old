@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * 修改列表样式为主副标题显示
  *
- * @author xuexiang
+ *
  * @since 2018/11/22 上午11:26
  */
 public abstract class BaseContainerFragment extends XPageContainerListFragment {

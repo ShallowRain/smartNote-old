@@ -28,7 +28,7 @@ import cn.rainss.smartNote.utils.sdkinit.XBasicLibInit;
 import cn.rainss.smartNote.utils.sdkinit.XUpdateInit;
 
 /**
- * @author xuexiang
+ *
  * @since 2018/11/7 下午1:12
  */
 public class MyApp extends Application {

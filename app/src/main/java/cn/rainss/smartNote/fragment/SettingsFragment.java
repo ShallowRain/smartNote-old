@@ -27,7 +27,7 @@ import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 import butterknife.BindView;
 
 /**
- * @author xuexiang
+ *
  * @since 2019-10-15 22:38
  */
 @Page(name = "设置")

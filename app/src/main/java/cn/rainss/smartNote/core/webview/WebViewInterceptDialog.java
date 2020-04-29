@@ -38,7 +38,7 @@ import java.net.URISyntaxException;
 /**
  * WebView拦截提示
  *
- * @author xuexiang
+ *
  * @since 2019-10-21 9:51
  */
 public class WebViewInterceptDialog extends AppCompatActivity implements DialogInterface.OnDismissListener {

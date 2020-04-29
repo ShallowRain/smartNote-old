@@ -42,7 +42,7 @@ import java.lang.reflect.Type;
 /**
  * 基础fragment
  *
- * @author xuexiang
+ *
  * @since 2018/5/25 下午3:44
  */
 public abstract class BaseFragment extends XPageFragment {

@@ -85,7 +85,7 @@ import static cn.rainss.smartNote.core.webview.AgentWebFragment.KEY_URL;
 /**
  * 使用XPageFragment
  *
- * @author xuexiang
+ *
  * @since 2019-05-26 18:15
  */
 @Page(params = {KEY_URL})

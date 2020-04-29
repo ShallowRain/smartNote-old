@@ -37,7 +37,7 @@ import com.xuexiang.xui.widget.slideback.SlideBack;
 /**
  * 壳浏览器
  *
- * @author xuexiang
+ *
  * @since 2019/1/5 上午12:15
  */
 public class AgentWebActivity extends AppCompatActivity {

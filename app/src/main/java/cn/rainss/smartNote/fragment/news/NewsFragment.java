@@ -35,7 +35,7 @@ import butterknife.BindView;
 /**
  * 首页动态
  *
- * @author xuexiang
+ *
  * @since 2019-10-30 00:15
  */
 @Page(anim = CoreAnim.none)

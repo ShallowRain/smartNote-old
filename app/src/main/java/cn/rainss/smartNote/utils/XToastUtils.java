@@ -27,7 +27,7 @@ import com.xuexiang.xui.widget.toast.XToast;
 /**
  * xtoast 工具类
  *
- * @author xuexiang
+ *
  * @since 2019-06-30 19:04
  */
 public final class XToastUtils {

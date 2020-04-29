@@ -58,7 +58,7 @@ import butterknife.BindView;
 /**
  * 程序主页面,只是一个简单的Tab例子
  *
- * @author xuexiang
+ *
  * @since 2019-07-07 23:53
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, BottomNavigationView.OnNavigationItemSelectedListener, ClickUtils.OnClick2ExitListener, Toolbar.OnMenuItemClickListener {
