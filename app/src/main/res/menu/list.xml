@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yzy.test.ListActivity">
+    <item
+        android:id="@+id/list_search"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <!--<item-->
+    <!--android:id="@+id/insert_diary"-->
+    <!--android:icon="@drawable/ic_action_edit"-->
+    <!--android:title="@string/insert_diary"-->
+    <!--/>-->
+    <!--<item-->
+    <!--android:id="@+id/diary_setting"-->
+    <!--android:icon="@drawable/ic_action_about"-->
+    <!--android:title="@string/action_setting" />-->
+    <!--<item-->
+    <!--android:id="@+id/diary_about"-->
+    <!--android:icon="@drawable/ic_action_about"-->
+    <!--android:title="@string/diary_about" />-->
+    <!--<item-->
+    <!--android:id="@+id/diary_exit"-->
+    <!--android:icon="@android:drawable/ic_delete"-->
+    <!--android:title="@string/diary_exit"-->
+    <!--/>-->
+
+
+</menu>

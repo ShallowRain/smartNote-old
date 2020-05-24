@@ -1,6 +1,6 @@
-package cn.rainss.smartNote.fragment;
+package cn.rainss.smartNote.fragment.note;
 
-import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -8,21 +8,18 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.xuexiang.xpage.annotation.Page;
+import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.recyclerview.XLinearLayoutManager;
 import com.xuexiang.xui.utils.ResUtils;
-import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
-import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xui.widget.actionbar.TitleBar;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenu;
 import com.yanzhenjie.recyclerview.SwipeMenuBridge;
@@ -38,14 +35,18 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.rainss.smartNote.R;
+import cn.rainss.smartNote.activity.MainActivity;
 import cn.rainss.smartNote.adapter.TypeItemViewAdapter;
 import cn.rainss.smartNote.adapter.entity.Type;
 import cn.rainss.smartNote.core.BaseFragment;
-import cn.rainss.smartNote.utils.SQLiteUtils;
+import cn.rainss.smartNote.dao.SQLiteUtils;
 import cn.rainss.smartNote.utils.XToastUtils;
 
-@Page(name = "分类管理")
-public class TypeFragment extends BaseFragment {
+/**
+ * 笔记管理模块
+ */
+@Page(anim = CoreAnim.none)
+public class NoteFragment extends BaseFragment {
     /**
      * 绑定页面元素
      */
@@ -53,20 +54,27 @@ public class TypeFragment extends BaseFragment {
     SwipeRecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.type_add)
-    FloatingActionButton typeAdd;
+    @BindView(R.id.note_add)
+    FloatingActionButton noteAdd;
 
     private TypeItemViewAdapter mAdapter;
     private Handler mHandler = new Handler();
     private boolean mEnableLoadMore;
 
     /**
+     * @return 返回为 null意为不需要导航栏
+     */
+    @Override
+    protected TitleBar initTitle() {
+        return null;
+    }
+    /**
      * 获取布局
      * @return
      */
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_type;
+        return R.layout.fragment_note;
     }
 
     /**
@@ -84,49 +92,6 @@ public class TypeFragment extends BaseFragment {
         swipeRefreshLayout.setColorSchemeColors(0xff0099cc, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
     }
 
-    /**
-     * 添加分类弹窗
-     */
-    private void addTypeDialog() {
-        new MaterialDialog.Builder(getContext())
-                .customView(R.layout.toast_add_type, true)
-                .title("提示")
-                .positiveText(R.string.type_add_btn)
-                .negativeText(R.string.type_cancel_btn)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        EditText type_name = dialog.getCustomView().findViewById(R.id.type_name_text);
-                        String typeStr = type_name.getText().toString();
-                        //判断是否传入空值
-                        if(typeStr != null && !typeStr.trim().equals("")){
-                            SQLiteUtils sqLiteUtils = new SQLiteUtils(getActivity());
-                            //格式化时间
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            //获取当前时间
-                            String time = df.format(new Date());
-                            SQLiteDatabase db = sqLiteUtils.getWritableDatabase();
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("name",typeStr);
-                            contentValues.put("create_time",time);
-                            db.insert("type",null,contentValues);
-                            db.close();
-                            sqLiteUtils.close();
-                            //刷新数据
-                            refresh();
-                        }else{
-                            XToastUtils.toast(ResUtils.getString(R.string.content_warning));
-                        }
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        XToastUtils.toast(R.string.add_type_cancel);
-                    }
-                })
-                .show();
-    }
 
     /**
      * 初始化监听方法
@@ -134,10 +99,14 @@ public class TypeFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         // 添加按钮监听事件
-        typeAdd.setOnClickListener(new View.OnClickListener(){
+        noteAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                addTypeDialog();
+                //添加按钮被点击，打开新窗口添加笔记
+                //openNewPage(NoteAddFragment.class);
+                Intent intent=new Intent();
+                intent.setClass(getActivity(), cn.rainss.smartNote.note.ui.MainActivity.class);
+                startActivity(intent);
             }
         });
         // 刷新监听。

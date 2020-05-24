@@ -1,4 +1,4 @@
-package cn.rainss.smartNote.utils;
+package cn.rainss.smartNote.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,11 +22,7 @@ public class SQLiteUtils extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //创建分类表
-        db.execSQL("CREATE TABLE \"type\" (\n" +
-                "  \"id\" integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
-                "  \"name\" TEXT NOT NULL,\n" +
-                "  \"create_time\" timestamp NOT NULL\n" +
-                ")");
+        db.execSQL("create table \"type\" (\"id\" integer not null primary key autoincrement,\"name\" text not null,\"create_time\" timestamp not null,\"update_time\" timestamp not null)");
     }
 
     /**

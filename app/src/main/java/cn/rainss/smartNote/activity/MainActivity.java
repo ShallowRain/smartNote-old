@@ -17,8 +17,8 @@
 
 package cn.rainss.smartNote.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,11 +33,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
 import cn.rainss.smartNote.fragment.AboutFragment;
+import cn.rainss.smartNote.fragment.note.NoteFragment;
 import cn.rainss.smartNote.fragment.SettingsFragment;
-import cn.rainss.smartNote.fragment.TypeFragment;
+import cn.rainss.smartNote.fragment.type.TypeFragment;
 import cn.rainss.smartNote.fragment.more.MoreFragment;
-import cn.rainss.smartNote.fragment.news.NewsFragment;
 import cn.rainss.smartNote.fragment.profile.ProfileFragment;
 import cn.rainss.smartNote.fragment.trending.TrendingFragment;
 import cn.rainss.smartNote.R;
@@ -45,6 +46,7 @@ import cn.rainss.smartNote.core.BaseActivity;
 import cn.rainss.smartNote.core.BaseFragment;
 import cn.rainss.smartNote.utils.Utils;
 import cn.rainss.smartNote.utils.XToastUtils;
+
 import com.xuexiang.xaop.annotation.SingleClick;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.utils.ResUtils;
@@ -57,7 +59,6 @@ import butterknife.BindView;
 
 /**
  * 程序主页面,只是一个简单的Tab例子
- *
  *
  * @since 2019-07-07 23:53
  */
@@ -111,11 +112,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         //主页内容填充
         BaseFragment[] fragments = new BaseFragment[]{
-                new NewsFragment(),
+                new NoteFragment(),
                 new TrendingFragment(),
-                new ProfileFragment(),
-                new MoreFragment()
+                new ProfileFragment()
         };
+
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getSupportFragmentManager(), fragments);
         viewPager.setOffscreenPageLimit(mTitles.length - 1);
         viewPager.setAdapter(adapter);
@@ -141,7 +142,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
+        Intent intent = new Intent();
+        ;
         //侧边栏点击事件
         navView.setNavigationItemSelectedListener(menuItem -> {
             if (menuItem.isCheckable()) {
@@ -156,8 +158,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         openNewPage(AboutFragment.class);
                         break;
                     case R.id.nav_type:
+                        XToastUtils.toast("分类点击");
                         //打开分类页面的Fragment
                         openNewPage(TypeFragment.class);
+                        break;
+                    case R.id.nav_diary:
+                        //打开日记页面
+                        intent.setClass(this, cn.rainss.smartNote.diary.LockActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_schedule:
+                        //调起页面
+                        intent.setClass(MainActivity.this, cn.rainss.smartNote.schedule.activity.MainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_note:
+                        //调起页面
+                        intent.setClass(MainActivity.this, cn.rainss.smartNote.note.ui.MainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_backup:
+                        //调起页面
+                        intent.setClass(MainActivity.this, cn.rainss.smartNote.diary.BackupActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         XToastUtils.toast("点击了:" + menuItem.getTitle());
@@ -190,7 +213,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_privacy:
                 Utils.showPrivacyDialog(this, null);
                 break;

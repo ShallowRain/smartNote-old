@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:viewportWidth="32"
+    android:viewportHeight="32" android:width="32dp" android:height="32dp">
+    <group>
+        <group>
+            <group>
+                <path android:fillColor="#F7CE30"
+                    android:pathData="M16.3 24.1c-2.9 0-5.3-2.2-5.3-5c0-0.4 0.4-0.8 0.8-0.8c0.4 0 8.6 0 9 0c0.4 0 0.8 0.4 0.8 0.8 C21.6 21.8 19.2 24.1 16.3 24.1z" />
+            </group>
+            <group>
+                <path android:fillColor="#F7696D"
+                    android:pathData="M13.6 9c-0.7-0.7-1.8-0.7-2.5 0L11 9l0 0c-0.7-0.7-1.8-0.7-2.5 0c-0.7 0.7-0.7 1.8 0 2.5L11 14l2.5-2.5l0 0l0.1-0.1 C14.3 10.8 14.3 9.7 13.6 9z" />
+                <path android:fillColor="#F7696D"
+                    android:pathData="M24.1 9c-0.7-0.7-1.8-0.7-2.5 0L21.5 9l0 0c-0.7-0.7-1.8-0.7-2.5 0c-0.7 0.7-0.7 1.8 0 2.5l2.5 2.5l2.5-2.5l0 0l0.1-0.1 C24.7 10.8 24.7 9.7 24.1 9z" />
+            </group>
+        </group>
+        <path android:name="st0" android:fillColor="#DBA6F5"
+            android:pathData="M27.1 2.5c1.4 0 2.5 1.1 2.5 2.5v22.2c0 1.4-1.1 2.5-2.5 2.5H4.9c-1.4 0-2.5-1.1-2.5-2.5V4.9 c0-1.4 1.1-2.5 2.5-2.5H27.1 M27.1 0H4.9C2.2 0 0 2.2 0 4.9v22.2C0 29.8 2.2 32 4.9 32h22.2c2.7 0 4.9-2.2 4.9-4.9V4.9 C32 2.2 29.8 0 27.1 0L27.1 0z" />
+    </group>
+</vector>

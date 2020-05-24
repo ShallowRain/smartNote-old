@@ -19,10 +19,10 @@
 <resources>
 
     <string-array name="home_titles">
-        <item>@string/menu_news</item>
-        <item>@string/menu_trending</item>
+        <item>@string/menu_note</item>
+        <item>@string/menu_diary</item>
         <item>@string/menu_profile</item>
-        <item>@string/menu_more</item>
+<!--        <item>@string/menu_more</item>-->
     </string-array>
 
     <string-array name="adBlockUrl">
@@ -58,5 +58,15 @@
         <item>bayimob.com</item>
     </string-array>
 
+    <array name="colors">
+        <item>#3F51B5</item>
+        <item>#424242</item>
+        <item>#D32F2F</item>
+        <item>#E91E63</item>
+        <item>#00BCD4</item>
+        <item>#009688</item>
+        <item>#8BC34A</item>
+        <item>#FF9800</item>
+    </array>
 
 </resources>

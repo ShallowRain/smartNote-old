@@ -22,8 +22,9 @@
 
     <TextView
         style="@style/TextStyle.Title"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:text="@string/menu_trending" />
+        android:text="笔记页面" />
 
 </LinearLayout>

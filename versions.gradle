@@ -211,7 +211,8 @@ static def addRepos(RepositoryHandler handler) {
     handler.maven { url "https://jitpack.io" }
     handler.maven { url "https://dl.bintray.com/umsdk/release" }
     //Add the aliyun repository
-    handler.maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    handler.maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    handler.maven { url "https://raw.githubusercontent.com/bmob/bmob-android-sdk/master" }
     //Add the Local repository
     handler.maven{ url 'LocalRepository'}
 }

@@ -117,6 +117,7 @@ public class BaseActivity extends XPageActivity {
      */
     public String serializeObject(Object object) {
         return XRouter.getInstance().navigation(SerializationService.class).object2Json(object);
+
     }
 
     @Override

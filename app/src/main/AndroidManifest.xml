@@ -3,12 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.rainss.smartNote">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- bmob -->
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <!--进程杀死-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <!--解决项目minSDK与第三方库minSDK不一致情况-->
+    <uses-sdk tools:overrideLibrary="com.github.ielse.imagewatcher"/>
+
 
     <application
         android:name="cn.rainss.smartNote.MyApp"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -86,6 +120,21 @@
                 <!--                    android:scheme="https"/>-->
             </intent-filter>
         </activity>
+        <activity
+            android:name="cn.rainss.smartNote.note.ui.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.rainss.smartNote.note.ui.NewActivity"
+            android:label="@string/title_activity_new"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="cn.rainss.smartNote.note.ui.NoteActivity"
+            android:label="@string/title_activity_note"/>
 
         <!--fragment的页面容器-->
         <activity
@@ -109,7 +158,40 @@
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
+        <activity
+            android:name="cn.rainss.smartNote.diary.ListActivity"
+            android:label="@string/title_activity_list" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.InsertActivity"
+            android:label="@string/title_activity_insert" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.InfoActivity"
+            android:label="@string/diary_about" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.DetailActivity"
+            android:label="@string/title_activity_detail" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.UpdateActivity"
+            android:label="@string/title_activity_update" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.SettingActivity"
+            android:label="@string/title_activity_setting" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.BackupActivity"
+            android:label="@string/title_activity_backup" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.TrashActivity"
+            android:label="@string/title_activity_trash" />
+        <activity
+            android:name="cn.rainss.smartNote.diary.LockActivity"
+            android:label="@string/title_activity_list">
+        </activity>
+        <!--        <activity android:name=".activity.MainActivity"/>-->
+        <activity android:name="cn.rainss.smartNote.schedule.activity.EditNoteActivity" />
+        <activity android:name="cn.rainss.smartNote.schedule.activity.MainActivity" />
+        <activity android:name="cn.rainss.smartNote.schedule.activity.LoginActivity"/>
+        <activity android:name="cn.rainss.smartNote.schedule.activity.SignupActivity"/>
+        <activity android:name="cn.rainss.smartNote.schedule.activity.DeletedNoteActivity"/>
         <!--屏幕自适应设计图-->
         <meta-data
             android:name="design_width_in_dp"
@@ -117,7 +199,21 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.sendtion.matisse.fileprovider_note"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="cn.rainss.smartNote.schedule.BmobContentProvider">
 
+        </provider>
+        <receiver android:name="cn.rainss.smartNote.schedule.receiver.ClockReceiver" />
     </application>
 
 </manifest>

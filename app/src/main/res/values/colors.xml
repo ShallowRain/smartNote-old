@@ -17,4 +17,52 @@
     <color name="red_pressed">#FF6666</color>
     <color name="green_normal">#37C000</color>
     <color name="green_pressed">#30A070</color>
+
+    <!-- Grey-->
+    <color name="grey_000">#FFFFFF</color>
+    <color name="grey_050">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+
+    <!--日记-->
+    <color name="update_logs">#299ee3</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="style_color_accent">#FF5722</color>
+    <color name="fab_color_shadow">#FF5722</color>
+    <color name="fab_color_pressed">#FF5722</color>
+
+    <!--日程 -->
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="app_color">#299ee3</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorHeaderBackground">#ebebeb</color>
+    <color name="colorNavItemUnselected">#757575</color>
+    <color name="transparent_black">#33000000</color>
+    <color name="cyan_500">#00BCD4</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="lime_500">#CDDC39</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="pink_500">#E91E63</color>
+    <color name="deep_orange">#FF5722</color>
+    <color name="layout_background">#fafafa</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="indicator_selected">@android:color/white</color>
+    <color name="indicator_unselected">#4D000000</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="primary">#E43F3F</color>
 </resources>

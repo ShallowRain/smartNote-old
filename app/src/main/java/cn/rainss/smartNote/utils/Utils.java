@@ -38,6 +38,10 @@ import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xutil.XUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static cn.rainss.smartNote.core.webview.AgentWebFragment.KEY_URL;
 
 /**
@@ -56,7 +60,6 @@ public final class Utils {
      * 这里填写你的应用隐私政策网页地址
      */
     private static final String PRIVACY_URL = "https://gitee.com/xuexiangjys/TemplateAppProject/raw/master/LICENSE";
-
     /**
      * 显示隐私政策的提示
      *
@@ -154,6 +157,5 @@ public final class Utils {
         intent.putExtra(KEY_URL, url);
         context.startActivity(intent);
     }
-
 
 }
