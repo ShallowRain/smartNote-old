@@ -47,6 +47,7 @@ import cn.rainss.smartNote.core.BaseActivity;
 import cn.rainss.smartNote.core.BaseFragment;
 import cn.rainss.smartNote.fragment.AboutFragment;
 import cn.rainss.smartNote.fragment.SettingsFragment;
+import cn.rainss.smartNote.fragment.news.NewsFragment;
 import cn.rainss.smartNote.fragment.note.NoteFragment;
 import cn.rainss.smartNote.fragment.profile.ProfileFragment;
 import cn.rainss.smartNote.fragment.trending.TrendingFragment;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initHeader();
         //主页内容填充
         BaseFragment[] fragments = new BaseFragment[]{
-                new NoteFragment(),
+                new NewsFragment(),
                 new TrendingFragment(),
                 new ProfileFragment()
         };

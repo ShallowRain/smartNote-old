@@ -19,7 +19,7 @@
 <resources>
 
     <string-array name="home_titles">
-        <item>@string/menu_note</item>
+        <item>@string/menu_info</item>
         <item>@string/menu_chart</item>
         <item>@string/menu_profile</item>
 <!--        <item>@string/menu_more</item>-->

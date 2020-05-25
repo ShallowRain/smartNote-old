@@ -23,7 +23,6 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,9 +30,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.core.webview.BaseWebViewFragment;
-import cn.rainss.smartNote.diary.DiaryApplication;
 import cn.rainss.smartNote.diary.dao.DBManager;
 import cn.rainss.smartNote.utils.Utils;
+import cn.rainss.smartNote.utils.XToastUtils;
 
 /**
  *
@@ -77,6 +76,7 @@ public class TrendingFragment extends BaseWebViewFragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SingleClick
     @OnClick({R.id.btn_bar_chart, R.id.btn_line_chart, R.id.btn_pie_chart})
     public void onViewClicked(View view) {
@@ -85,6 +85,7 @@ public class TrendingFragment extends BaseWebViewFragment {
                 initBarChart();
                 break;
             case R.id.btn_line_chart:
+                XToastUtils.toast("展示未实现的功能");
                 initLineChart();
                 break;
             case R.id.btn_pie_chart:

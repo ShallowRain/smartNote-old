@@ -33,19 +33,13 @@ import java.util.List;
 public class DemoDataProvider {
 
     public static String[] titles = new String[]{
-            "伪装者:胡歌演绎'痞子特工'",
-            "无心法师:生死离别!月牙遭虐杀",
-            "花千骨:尊上沦为花千骨",
-            "综艺饭:胖轩偷看夏天洗澡掀波澜",
-            "碟中谍4:阿汤哥高塔命悬一线,超越不可能",
+            "Android System",
+            "Android",
     };
 
     public static String[] urls = new String[]{//640*360 360/640=0.5625
-            "http://photocdn.sohu.com/tvmobilemvms/20150907/144160323071011277.jpg",//伪装者:胡歌演绎"痞子特工"
-            "http://photocdn.sohu.com/tvmobilemvms/20150907/144158380433341332.jpg",//无心法师:生死离别!月牙遭虐杀
-            "http://photocdn.sohu.com/tvmobilemvms/20150907/144160286644953923.jpg",//花千骨:尊上沦为花千骨
-            "http://photocdn.sohu.com/tvmobilemvms/20150902/144115156939164801.jpg",//综艺饭:胖轩偷看夏天洗澡掀波澜
-            "http://photocdn.sohu.com/tvmobilemvms/20150907/144159406950245847.jpg",//碟中谍4:阿汤哥高塔命悬一线,超越不可能
+            "https://bkimg.cdn.bcebos.com/pic/95eef01f3a292df58921b9d3b2315c6035a87311?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5",
+            "https://bkimg.cdn.bcebos.com/pic/78310a55b319ebc433cd2ac18d26cffc1e171634?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5"
     };
 
     @MemoryCache
@@ -69,25 +63,15 @@ public class DemoDataProvider {
     @MemoryCache
     public static List<NewInfo> getDemoNewInfos() {
         List<NewInfo> list = new ArrayList<>();
-        list.add(new NewInfo("源码", "Android源码分析--Android系统启动")
-                .setSummary("其实Android系统的启动最主要的内容无非是init、Zygote、SystemServer这三个进程的启动，他们一起构成的铁三角是Android系统的基础。")
-                .setDetailUrl("https://juejin.im/post/5c6fc0cdf265da2dda694f05")
-                .setImageUrl("https://user-gold-cdn.xitu.io/2019/2/22/16914891cd8a950a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"));
+        list.add(new NewInfo("Android 系统","Android一词的本义指“机器人”，同时也是Google于2007年11月5日Android  logo相关图片Android logo相关图片(33张)宣布的基于Linux平台的开源手机操作系统的名称，该平台由操作系统、中间件、用户界面和应用软件组成。")
+                .setSummary("安卓是一种基于Linux内核（不包含GNU组件）的自由及开放源代码的操作系统。主要使用于移动设备，如智能手机和平板电脑，由美国Google公司和开放手机联盟领导及开发。Android操...\n")
+                .setDetailUrl("https://baidu.com")
+                .setImageUrl("https://rainss.cn/usr/themes/Volcano/thumb/4.png"));
 
-        list.add(new NewInfo("Android UI", "XUI 一个简洁而优雅的Android原生UI框架，解放你的双手")
-                .setSummary("涵盖绝大部分的UI组件：TextView、Button、EditText、ImageView、Spinner、Picker、Dialog、PopupWindow、ProgressBar、LoadingView、StateLayout、FlowLayout、Switch、Actionbar、TabBar、Banner、GuideView、BadgeView、MarqueeView、WebView、SearchView等一系列的组件和丰富多彩的样式主题。\n")
-                .setDetailUrl("https://juejin.im/post/5c3ed1dae51d4543805ea48d")
-                .setImageUrl("https://user-gold-cdn.xitu.io/2019/1/16/1685563ae5456408?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"));
-
-        list.add(new NewInfo("面试", "写给即将面试的你")
-                .setSummary("最近由于公司业务发展，需要招聘技术方面的人才，由于我在技术方面比较熟悉，技术面的任务就交给我了。今天我要分享的就和面试有关，主要包含技术面的流程、经验和建议，避免大家在今后的面试过程中走一些弯路，帮助即将需要跳槽面试的人。")
-                .setDetailUrl("https://juejin.im/post/5ca4df966fb9a05e4e58320c")
-                .setImageUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554629219186&di=6cdab5cfceaae1f7e6d78dbe79104c9f&imgtype=0&src=http%3A%2F%2Fimg.qinxue365.com%2Fuploads%2Fallimg%2F1902%2F4158-1Z22FZ64E00.jpg"));
-
-        list.add(new NewInfo("Android", "XUpdate 一个轻量级、高可用性的Android版本更新框架")
-                .setSummary("XUpdate 一个轻量级、高可用性的Android版本更新框架。本框架借鉴了AppUpdate中的部分思想和UI界面，将版本更新中的各部分环节抽离出来，形成了如下几个部分：")
-                .setDetailUrl("https://juejin.im/post/5b480b79e51d45190905ef44")
-                .setImageUrl("https://user-gold-cdn.xitu.io/2018/7/13/16492d9b7877dc21?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"));
+        list.add(new NewInfo("消息", "谷歌被迫“挥刀”华为：迸裂的安卓生态")
+                .setSummary("曾经，有实力的厂商都曾推出过自己的手机操作系统，比如三星的自有系统Tizen，微软的Windows Phone，以及塞班、黑莓等等。最终，因为安卓开放的生态以及对谷歌的信任，如今除苹果外几乎所有的手机制造商都在全力支持安卓。")
+                .setDetailUrl("https://imgsrc.baidu.com/")
+                .setImageUrl("https://rainss.cn/usr/themes/Volcano/thumb/1.png"));
 
         list.add(new NewInfo("Android/HTTP", "XHttp2 一个功能强悍的网络请求库，使用RxJava2 + Retrofit2 + OKHttp进行组装")
                 .setSummary("一个功能强悍的网络请求库，使用RxJava2 + Retrofit2 + OKHttp组合进行封装。还不赶紧点击使用说明文档，体验一下吧！")

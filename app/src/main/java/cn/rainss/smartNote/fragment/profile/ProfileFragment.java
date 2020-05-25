@@ -29,6 +29,9 @@ import com.xuexiang.xui.widget.imageview.RadiusImageView;
 import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 
 import butterknife.BindView;
+import cn.rainss.smartNote.fragment.user.LoginFragment;
+import cn.rainss.smartNote.fragment.user.RegisterFragment;
+import cn.rainss.smartNote.utils.XToastUtils;
 
 /**
  *
@@ -40,6 +43,8 @@ public class ProfileFragment extends BaseFragment implements SuperTextView.OnSup
     SuperTextView menuSettings;
     @BindView(R.id.menu_about)
     SuperTextView menuAbout;
+    @BindView(R.id.account)
+    SuperTextView account;
 
     /**
      * @return 返回为 null意为不需要导航栏
@@ -71,6 +76,7 @@ public class ProfileFragment extends BaseFragment implements SuperTextView.OnSup
     protected void initListeners() {
         menuSettings.setOnSuperTextViewClickListener(this);
         menuAbout.setOnSuperTextViewClickListener(this);
+        account.setOnSuperTextViewClickListener(this);
 
     }
 
@@ -84,6 +90,9 @@ public class ProfileFragment extends BaseFragment implements SuperTextView.OnSup
             case R.id.menu_about:
                 openNewPage(AboutFragment.class);
                 break;
+            case R.id.account:
+                XToastUtils.toast("未实现的功能");
+                openNewPage(RegisterFragment.class);
             default:
                 break;
         }

@@ -133,7 +133,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
             return;
         }
         schedules.remove(position);
-        timer.cancel();
+        //timer.cancel();
         notifyItemRemoved(position);
 //        notifyDataSetChanged();
     }

@@ -33,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xutil.XUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +45,7 @@ import cn.rainss.smartNote.schedule.adapter.ListAdapter;
 import cn.rainss.smartNote.schedule.db.DBManager;
 import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.receiver.ClockReceiver;
+import cn.rainss.smartNote.utils.XToastUtils;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -178,6 +180,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                       public void onPositive(MaterialDialog dialog) {
                                           DBManager.getInstance(MainActivity.this).deleteNote(id);
                                           adapter.removeItem(position);
+                                          XToastUtils.toast("删除成功");
+                                          updateView();
                                       }
                                   }
                         ).show();
@@ -190,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onRefresh() {
                 updateView();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

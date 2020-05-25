@@ -36,7 +36,7 @@ public class DBManager {
     }
 
     // 添加到数据库
-    public void addToDB(String title, String content, String time, String  priority, Long clockTime) {
+    public void addToDB(String title, String content, String time, String priority, Long clockTime) {
         //  组装数据
         ContentValues cv = new ContentValues();
         cv.put(ScheduleDBOpenHelper.TITLE, title);
@@ -52,8 +52,8 @@ public class DBManager {
         Cursor cursor = dbReader.query(ScheduleDBOpenHelper.TABLE_NAME, null, null,
                 null, null, null, "_id");
         try {
-            if (cursor.moveToFirst()){
-                 do {
+            if (cursor.moveToFirst()) {
+                do {
                     Schedule schedule = new Schedule();
                     schedule.setId(cursor.getInt(cursor.getColumnIndex(ScheduleDBOpenHelper.ID)));
                     schedule.setTitle(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TITLE)));
@@ -62,8 +62,8 @@ public class DBManager {
                     schedule.setPriority(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.PRIORITY)));
                     schedule.setClockTime(cursor.getLong(cursor.getColumnIndex(ScheduleDBOpenHelper.CLOCKTIME)));
 //                     Log.d("TAG",note.getId()+"    title"+note.getTitle());
-                     scheduleList.add(schedule);
-                 } while (cursor.moveToNext());
+                    scheduleList.add(schedule);
+                } while (cursor.moveToNext());
             }
             cursor.close();
         } catch (Exception e) {
@@ -74,11 +74,11 @@ public class DBManager {
 
     //  读取数据(按照clockTime顺序)
     public void readFromDBByClockTime(List<Schedule> scheduleList) {
-        String currentMilisTime  = TimeUtil.getCurrentMilisTime().toString();
+        String currentMilisTime = TimeUtil.getCurrentMilisTime().toString();
         Cursor cursor = dbReader.query(ScheduleDBOpenHelper.TABLE_NAME, null, "clocKTime >= ?",
                 new String[]{currentMilisTime}, null, null, "clocKTime");
         try {
-            if (cursor.moveToFirst()){
+            if (cursor.moveToFirst()) {
                 do {
                     Schedule schedule = new Schedule();
                     schedule.setId(cursor.getInt(cursor.getColumnIndex(ScheduleDBOpenHelper.ID)));
@@ -87,7 +87,7 @@ public class DBManager {
                     schedule.setTime(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TIME)));
                     schedule.setPriority(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.PRIORITY)));
                     schedule.setClockTime(cursor.getLong(cursor.getColumnIndex(ScheduleDBOpenHelper.CLOCKTIME)));
-                    Log.d("TAG clocktime", schedule.getId()+"    clockTime"+ schedule.getClockTime());
+                    Log.d("TAG clocktime", schedule.getId() + "    clockTime" + schedule.getClockTime());
                     scheduleList.add(schedule);
                 } while (cursor.moveToNext());
             }
@@ -100,7 +100,7 @@ public class DBManager {
 
 
     //  更新数据
-    public void updateNote(int noteID, String title, String content, String time,String priority, Long clockTime) {
+    public void updateNote(int noteID, String title, String content, String time, String priority, Long clockTime) {
         ContentValues cv = new ContentValues();
         cv.put(ScheduleDBOpenHelper.ID, noteID);
         cv.put(ScheduleDBOpenHelper.TITLE, title);
@@ -112,13 +112,14 @@ public class DBManager {
     }
 
     //  删除数据
-    public void deleteNote(int noteID) {
-        dbWriter.delete(ScheduleDBOpenHelper.TABLE_NAME, "_id = ?", new String[]{noteID + ""});
+    public Boolean deleteNote(int noteID) {
+        int delete = dbWriter.delete(ScheduleDBOpenHelper.TABLE_NAME, "_id = ?", new String[]{noteID + ""});
+        return delete >= 1 ? true : false;
     }
 
     //删除数据库所有数据（通过升级版本实现）
-    public void deleteAllNote(int newVersion){
-        sqLiteOpenHelper.onUpgrade(dbWriter,3, newVersion);
+    public void deleteAllNote(int newVersion) {
+        sqLiteOpenHelper.onUpgrade(dbWriter, 3, newVersion);
     }
 
 

@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import cn.bmob.v3.Bmob;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.utils.MMKVUtils;
 import cn.rainss.smartNote.utils.Utils;

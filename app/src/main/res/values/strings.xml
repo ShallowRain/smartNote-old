@@ -61,7 +61,7 @@
     <string name="title_activity_new">NewActivity</string>
     <string name="title_activity_note">NoteActivity</string>
 
-
+    <string name="menu_info">信息</string>
     <!-- 日记 -->
     <string name="diary_info">日记本</string>
     <string name="diary_version">版本号：2.1.2</string>

@@ -45,7 +45,7 @@ import cn.rainss.smartNote.utils.XToastUtils;
 /**
  * 笔记管理模块
  */
-@Page(anim = CoreAnim.none)
+@Page(name = "信息")
 public class NoteFragment extends BaseFragment {
     /**
      * 绑定页面元素
@@ -126,12 +126,12 @@ public class NoteFragment extends BaseFragment {
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            loadData();
+            //loadData();
         }
     };
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        loadData();
+        //loadData();
     }
 
     private void loadData() {

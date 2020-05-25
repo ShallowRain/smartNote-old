@@ -38,7 +38,7 @@ import butterknife.BindView;
  *
  * @since 2019-10-30 00:15
  */
-@Page(anim = CoreAnim.none)
+@Page(name="信息")
 public class NewsFragment extends BaseFragment {
 
     @BindView(R.id.recyclerView)
