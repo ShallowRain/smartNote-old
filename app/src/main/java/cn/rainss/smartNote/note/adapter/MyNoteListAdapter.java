@@ -66,8 +66,6 @@ public class MyNoteListAdapter extends RecyclerView.Adapter<MyNoteListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.i(TAG, "###onCreateViewHolder: ");
-        //inflate(R.layout.list_item_record,parent,false) 如果不这么写，cardview不能适应宽度
         mContext = parent.getContext();
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_note,parent,false);
         //将创建的View注册点击事件
@@ -78,13 +76,14 @@ public class MyNoteListAdapter extends RecyclerView.Adapter<MyNoteListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //Log.i(TAG, "###onBindViewHolder: ");
+
         final Note note = mNotes.get(position);
         //将数据保存在itemView的Tag中，以便点击时进行获取
         holder.itemView.setTag(note);
         //Log.e("adapter", "###record="+record);
         holder.tv_list_title.setText(note.getTitle());
-        holder.tv_list_summary.setText(note.getContent());
+        //替换掉预览页面的图片标签
+        holder.tv_list_summary.setText(note.getContent().replaceAll("<img [\\s\\S]*?/>","[图片]"));
         holder.tv_list_time.setText(note.getCreateTime());
         holder.tv_list_group.setText(note.getGroupName());
     }

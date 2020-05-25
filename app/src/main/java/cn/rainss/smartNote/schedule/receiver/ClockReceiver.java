@@ -15,9 +15,7 @@ import cn.rainss.smartNote.schedule.activity.MainActivity;
 
 public class ClockReceiver extends BroadcastReceiver {
 
-
     private Vibrator vibrator;   //手机震动
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,18 +24,11 @@ public class ClockReceiver extends BroadcastReceiver {
 
         vibrator.vibrate(new long[]{500, 1000, 500, 2000}, 0);
 
-
-        Toast.makeText(context, "收到定时广播", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "收到定时广播", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(context, MainActivity.class);
         String  content = intent.getStringExtra("content");
 
         int LAYOUT_FLAG;
-
-        //TODO API>23 时候要申请权限
-//        if (Build.VERSION.SDK_INT < 23){
-
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("小主~你定的任务时间到了~");
             builder.setMessage(content);
@@ -48,14 +39,12 @@ public class ClockReceiver extends BroadcastReceiver {
                 }
             });
             AlertDialog alertDialog = builder.create();
-//            alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             alertDialog.getWindow().setType((WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY));
         }else {
             alertDialog.getWindow().setType((WindowManager.LayoutParams.TYPE_SYSTEM_ALERT));
         }
             alertDialog.show();
-//        }
 
 
         context.startService(i);

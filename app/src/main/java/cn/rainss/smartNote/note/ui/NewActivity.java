@@ -85,29 +85,12 @@ public class NewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new);
+        setContentView(R.layout.activity_note_new);
 
         initView();
 
     }
-/*    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case READ_EXTERNAL_STORAGE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // 权限请求成功
 
-                } else {
-                    // 用户拒绝了
-                    showTipDialog();
-                }
-                break;
-
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }*/
     private void showTipDialog() {
         new AlertDialog.Builder(this)
                 .setMessage("该程序需要电话权限，否则无法正常运行")
@@ -115,6 +98,7 @@ public class NewActivity extends BaseActivity {
                 .create()
                 .show();
     }
+
     private void initView() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -11,14 +11,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import cn.rainss.smartNote.R;
 
 import java.util.List;
 
+import cn.rainss.smartNote.behavior.FloatButton;
 import cn.rainss.smartNote.note.adapter.MyNoteListAdapter;
 import cn.rainss.smartNote.note.bean.Note;
 import cn.rainss.smartNote.note.db.NoteDao;
 import cn.rainss.smartNote.note.view.SpacesItemDecoration;
+import cn.rainss.smartNote.utils.XToastUtils;
 
 public class MainActivity extends BaseActivity {
     private MyNoteListAdapter mNoteListAdapter;
@@ -29,9 +34,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_main);
-
         initView();
-
     }
 
     private void initView() {
@@ -73,7 +76,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         int ret = noteDao.deleteNote(note.getId());
-                        if (ret > 0){
+                        if (ret > 0) {
                             showToast("删除成功");
                             //TODO 删除笔记成功后，记得删除图片（分为本地图片和网络图片）
                             //获取笔记中图片的列表 StringUtils.getTextFromHtml(note.getContent(), true);
@@ -85,10 +88,21 @@ public class MainActivity extends BaseActivity {
                 builder.create().show();
             }
         });
+        //设置浮动按钮点击事件
+        FloatingActionButton addButton =  findViewById(R.id.note_add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewActivity.class);
+                intent.putExtra("groupName", "默认笔记");
+                intent.putExtra("flag", 0);
+                startActivity(intent);
+            }
+        });
     }
 
     //刷新笔记列表
-    private void refreshNoteList(){
+    private void refreshNoteList() {
         if (noteDao == null)
             noteDao = new NoteDao(this);
         noteList = noteDao.queryNotesAll(0);
@@ -99,7 +113,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         refreshNoteList();
     }
 

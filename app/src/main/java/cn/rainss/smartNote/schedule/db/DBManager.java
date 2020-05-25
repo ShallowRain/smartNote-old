@@ -124,7 +124,7 @@ public class DBManager {
 
     // 根据id查询数据
     public Note readData(int noteID) {
-        Cursor cursor = dbReader.rawQuery("SELECT * FROM note WHERE _id = ?", new String[]{noteID + ""});
+        Cursor cursor = dbReader.rawQuery("SELECT * FROM schedule WHERE _id = ?", new String[]{noteID + ""});
         cursor.moveToFirst();
         Note note = new Note();
         note.setId(cursor.getInt(cursor.getColumnIndex(NoteDBOpenHelper.ID)));

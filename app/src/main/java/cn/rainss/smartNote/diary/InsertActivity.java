@@ -39,7 +39,7 @@ public class InsertActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert);
+        setContentView(R.layout.activity_diary_insert);
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         wh = display.getWidth();

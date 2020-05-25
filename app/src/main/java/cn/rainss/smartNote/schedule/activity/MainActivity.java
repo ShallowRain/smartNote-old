@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
 
         //第一：默认初始化
-        Bmob.initialize(this, "bdc479c9f78d163df6442083ce8578e8");
+        //Bmob.initialize(this, "bdc479c9f78d163df6442083ce8578e8");
 
         //定时闹钟实现
         List<Note> clockTimeList = new ArrayList<>();
@@ -166,26 +166,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                       public void onPositive(MaterialDialog dialog) {
                                           DBManager.getInstance(MainActivity.this).deleteNote(id);
                                           adapter.removeItem(position);
-                                          addNoteToDeleted(note.getTitle(),note.getContent(),note.getPriority(),SharedPreferencesUtil.getUsername());
+//                                          addNoteToDeleted(note.getTitle(),note.getContent(),note.getPriority(),SharedPreferencesUtil.getUsername());
                                       }
 
-                                      private void addNoteToDeleted(String title, String content, String priority,String user) {
-                                          Note_Deleted note_deleted = new Note_Deleted();
-                                          note_deleted.setTitle(title);
-                                          note_deleted.setContent(content);
-                                          note_deleted.setPriority(priority);
-                                          note_deleted.setUser(user);
-                                          note_deleted.save(new SaveListener<String>() {
-                                              @Override
-                                              public void done(String s, BmobException e) {
-                                                  if(e==null){
-                                                     Toast.makeText(getBaseContext(),"删除成功",Toast.LENGTH_SHORT).show();
-                                                  }else{
-                                                      Toast.makeText(getBaseContext(),"删除失败" + e.getMessage(),Toast.LENGTH_SHORT).show();
-                                                  }
-                                              }
-                                          });
-                                      }
+//                                      private void addNoteToDeleted(String title, String content, String priority,String user) {
+//                                          Note_Deleted note_deleted = new Note_Deleted();
+//                                          note_deleted.setTitle(title);
+//                                          note_deleted.setContent(content);
+//                                          note_deleted.setPriority(priority);
+//                                          note_deleted.setUser(user);
+//                                          note_deleted.save(new SaveListener<String>() {
+//                                              @Override
+//                                              public void done(String s, BmobException e) {
+//                                                  if(e==null){
+//                                                     Toast.makeText(getBaseContext(),"删除成功",Toast.LENGTH_SHORT).show();
+//                                                  }else{
+//                                                      Toast.makeText(getBaseContext(),"删除失败" + e.getMessage(),Toast.LENGTH_SHORT).show();
+//                                                  }
+//                                              }
+//                                          });
+//                                      }
 
                                   }
                         ).show();
@@ -196,51 +196,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateView();
 
 
-        //同步数据到本地
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                SharedPreferencesUtil.init(getApplicationContext());
-                BmobQuery<Note> query = new BmobQuery<>();
-                query.addWhereGreaterThanOrEqualTo("id",0);
-                query.addWhereEqualTo("user",SharedPreferencesUtil.getUsername());
-                query.order("-id").findObjects(new FindListener<Note>() {
-                    @Override
-                    public void done(List<Note> list, BmobException e) {
-                        if (e==null){
-
-                            swipeRefreshLayout.setRefreshing(false);
-
-                            dm.deleteAllNote(version++);
-                            Collections.reverse(list);
-                            noteDataList = list;
-
-                            for (int i = 0; i < list.size(); i++){
-                                Note position = list.get(i);
-                                dm.addToDB(position.getTitle(),position.getContent(),position.getTime(),position.getPriority(),position.getClockTime());
-
-                            }
-
-                            List<Note> showlist = new ArrayList();
-//                            dm.readFromDBByClockTime(showlist);
-                            adapter.updataView(list);
-
-                            updateView();
-
-                            if (list.size() == 0 ){
-                                Toast.makeText(getApplicationContext(),"你暂时还没有提醒事件",Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(getApplicationContext(),"获取数据成功",Toast.LENGTH_SHORT).show();
-                            }
-
-                        }else {
-                            swipeRefreshLayout.setRefreshing(false);
-                            Toast.makeText(getApplicationContext(),"您暂无提醒",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
+//        //同步数据到本地
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                SharedPreferencesUtil.init(getApplicationContext());
+//                BmobQuery<Note> query = new BmobQuery<>();
+//                query.addWhereGreaterThanOrEqualTo("id",0);
+//                query.addWhereEqualTo("user",SharedPreferencesUtil.getUsername());
+//                query.order("-id").findObjects(new FindListener<Note>() {
+//                    @Override
+//                    public void done(List<Note> list, BmobException e) {
+//                        if (e==null){
+//
+//                            swipeRefreshLayout.setRefreshing(false);
+//
+//                            dm.deleteAllNote(version++);
+//                            Collections.reverse(list);
+//                            noteDataList = list;
+//
+//                            for (int i = 0; i < list.size(); i++){
+//                                Note position = list.get(i);
+//                                dm.addToDB(position.getTitle(),position.getContent(),position.getTime(),position.getPriority(),position.getClockTime());
+//
+//                            }
+//
+//                            List<Note> showlist = new ArrayList();
+//                            adapter.updataView(list);
+//
+//                            updateView();
+//
+//                            if (list.size() == 0 ){
+//                                Toast.makeText(getApplicationContext(),"你暂时还没有提醒事件",Toast.LENGTH_SHORT).show();
+//                            }else {
+//                                Toast.makeText(getApplicationContext(),"获取数据成功",Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        }else {
+//                            swipeRefreshLayout.setRefreshing(false);
+//                            Toast.makeText(getApplicationContext(),"您暂无提醒",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
     }
 
@@ -296,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_about:
                 MaterialDialog dialog = new MaterialDialog.Builder(this)
                         .title(R.string.about)
-                        .content("这是我的毕业设计")
+                        .content("这是一个日程提醒模块")
                         .positiveText("确定")
                         .build();
 
@@ -310,11 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
-
                                 dm.deleteAllNote(version++);
-
-//                                noteDataList.clear();
-//                                adapter.updataView(noteDataList);
 
                                 recyclerView.setVisibility(View.GONE);
                                 emptyListTextView.setVisibility(View.VISIBLE);
@@ -362,17 +357,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else if (id == R.id.login_out){
             //退出登录逻辑
-            BmobUser.logOut();
+            //BmobUser.logOut();
+            //BmobUser.logOut();
 
-            SharedPreferencesUtil.init(this);
-            SharedPreferencesUtil.setUsername(null);
-            SharedPreferencesUtil.setPassword(null);
-            SharedPreferencesUtil.setIsLogin(false);
-            dm.deleteAllNote(version++);
-
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+//            SharedPreferencesUtil.init(this);
+//            SharedPreferencesUtil.setUsername(null);
+//            SharedPreferencesUtil.setPassword(null);
+//            SharedPreferencesUtil.setIsLogin(false);
+//            dm.deleteAllNote(version++);
+//
+//            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
 
         }
 

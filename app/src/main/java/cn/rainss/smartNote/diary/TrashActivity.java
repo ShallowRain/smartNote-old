@@ -29,7 +29,7 @@ public class TrashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trash);
+        setContentView(R.layout.activity_diary_trash);
 
 
         Toolbar toolbar = getToolbar();

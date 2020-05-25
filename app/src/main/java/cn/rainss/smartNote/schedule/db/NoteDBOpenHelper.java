@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class NoteDBOpenHelper extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "note";
+    private static final String sqliteFileName = "rains.db";
+    public static final String TABLE_NAME = "schedule";
     public static final int VERSION = 1;
     public static final String TITLE = "title";
     public static final String CONTENT = "content";
@@ -17,9 +18,8 @@ public class NoteDBOpenHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
 
     public NoteDBOpenHelper(Context context) {
-        super(context, TABLE_NAME, null, VERSION);
+        super(context, sqliteFileName, null, VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -30,10 +30,7 @@ public class NoteDBOpenHelper extends SQLiteOpenHelper {
                 + TIME + " TEXT NOT NULL,"
                 + CLOCKTIME + " Long,"
                 + PRIORITY + " TEXT NOT NULL)");
-
     }
-
-
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {

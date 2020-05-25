@@ -21,7 +21,7 @@ public class LockActivity extends BaseActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock);
+        setContentView(R.layout.activity_diary_lock);
 
         Toolbar toolbar = getToolbar();
         setSupportActionBar(toolbar);

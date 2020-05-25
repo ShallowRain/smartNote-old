@@ -32,7 +32,6 @@ import cn.rainss.smartNote.schedule.model.Note;
 import cn.rainss.smartNote.schedule.utils.TimeUtil;
 
 import java.util.Calendar;
-import java.util.HashMap;
 
 
 /**
@@ -59,9 +58,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editnote);
-
-
+        setContentView(R.layout.activity_schedule_edit);
         init();
         //初始化Mob的shareSDK（作用是分享到微信）
         initMob();
@@ -88,7 +85,7 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
         setSupportActionBar(toolbar);
 
         //name，defaultValue
-        noteID = getIntent().getIntExtra("id", -1);
+        noteID = getIntent().getIntExtra("id",  -1);
 
         //初始化view
         settingTime = findViewById(R.id.editview_remindtime);
