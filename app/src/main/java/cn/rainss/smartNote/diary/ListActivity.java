@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -30,6 +31,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,11 +52,13 @@ public class ListActivity extends BaseActivity {
     private ListView lvLeftMenu;
     private SimpleCursorAdapter adapter;
 
+    private long waitTime = 2000;
+    private long touchTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_list);
-
         checkPermission();
     }
 
@@ -145,9 +149,6 @@ public class ListActivity extends BaseActivity {
                         startActivity(new Intent(ListActivity.this, SettingActivity.class));
                         break;
                     case 4:
-                        startActivity(new Intent(ListActivity.this, InfoActivity.class));
-                        break;
-                    case 5:
                         finish();
                         break;
                 }
@@ -160,11 +161,11 @@ public class ListActivity extends BaseActivity {
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         String[] strings = new String[]{"新建", "回收站", "备份",
-                "加密",  "退出"};
-        int[] icons = new int[]{R.drawable.ic_1content_new,
-                R.drawable.ic_1content_discard, R.drawable.ic_1device_sd_storage,
-                R.drawable.ic_1action_settings,
-                R.drawable.ic_1navigation_cancel};
+                "加密", "退出"};
+        int[] icons = new int[]{R.drawable.ic_add_image,
+                R.drawable.ic_1content_discard, R.drawable.vector_drawable_backup,
+                R.drawable.ic_menu_settings,
+                R.drawable.ic_menu_about};
         Map<String, Object> map;
         int i;
         for (i = 0; i < strings.length; i++) {
@@ -302,5 +303,20 @@ public class ListActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    //按返回键时
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - touchTime) >= waitTime) {
+                Toast.makeText(this, R.string.exit, Toast.LENGTH_SHORT).show();
+                touchTime = currentTime;
+            } else {
+                finish();
+            }
+        }
     }
 }

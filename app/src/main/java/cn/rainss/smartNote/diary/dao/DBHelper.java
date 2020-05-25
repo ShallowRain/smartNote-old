@@ -13,7 +13,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "create table diary(_id integer primary key autoincrement ,diary_label varchar(255)," +
                     " diary_content varchar(2000), diary_date timestamp NOT NULL DEFAULT (datetime('now', 'localtime')),diary_weather varchar(20)" +
                     ",diary_mood varchar(20),diary_type varchar(20))";
-
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

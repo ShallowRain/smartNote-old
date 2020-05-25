@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cn.rainss.smartNote"> <!-- 解决项目minSDK与第三方库minSDK不一致情况 -->
+    package="cn.rainss.smartNote">
+    <!-- 解决项目minSDK与第三方库minSDK不一致情况 -->
     <uses-sdk tools:overrideLibrary="com.github.ielse.imagewatcher" />
-
+    <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--获取sd卡写的权限，用于文件上传和下载-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- bmob -->
-    <!-- 允许联网 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取wifi网络状态的信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 震动权限 -->
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 进程杀死 -->
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 进程杀死 -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
@@ -35,10 +43,7 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan|stateHidden"
         tools:ignore="LockedOrientationActivity">
-        <service
-            android:name=".schedule.service.MediaService"
-            android:enabled="true"
-            android:exported="true"></service>
+
 
         <activity
             android:name=".activity.SplashActivity"
@@ -107,22 +112,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".schedule.ui.MainActivity"
+            android:name=".note.ui.MainActivity"
             android:label="@string/app_name">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
-            android:name=".schedule.ui.NewActivity"
+            android:name=".note.ui.NewActivity"
             android:label="@string/title_activity_new"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".schedule.ui.NoteActivity"
+            android:name=".note.ui.NoteActivity"
             android:label="@string/title_activity_note" /> <!-- fragment的页面容器 -->
         <activity
             android:name=".core.BaseActivity"

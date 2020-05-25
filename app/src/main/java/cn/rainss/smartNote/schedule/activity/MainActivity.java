@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.schedule.adapter.ListAdapter;
 import cn.rainss.smartNote.schedule.db.DBManager;
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_main);
-
+        /**
+         * 请求权限
+         */
         if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(this)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("获取权限");
@@ -92,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             p.gravity = Gravity.CENTER;//设置位置
             dialogWindow.setAttributes(p);
         }
+
+
         init();
 
         //第一：默认初始化
@@ -120,11 +125,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         dm = new DBManager(this);
         dm.readFromDBById(scheduleDataList);
-
-
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("日程提醒");
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -133,16 +137,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //侧边栏点击事件
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         recyclerView = findViewById(R.id.list);
         addBtn = findViewById(R.id.add);
         emptyListTextView = findViewById(R.id.empty);
         addBtn.setOnClickListener(this);
 
-        //反向展现数据 新建的note在最上面
+        //反向展现数据 新建的在最上面
         Collections.reverse(scheduleDataList);
         adapter = new ListAdapter(this, scheduleDataList);
         recyclerView.setAdapter(adapter);
@@ -174,27 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                       public void onPositive(MaterialDialog dialog) {
                                           DBManager.getInstance(MainActivity.this).deleteNote(id);
                                           adapter.removeItem(position);
-//                                          addNoteToDeleted(note.getTitle(),note.getContent(),note.getPriority(),SharedPreferencesUtil.getUsername());
                                       }
-
-//                                      private void addNoteToDeleted(String title, String content, String priority,String user) {
-//                                          Note_Deleted note_deleted = new Note_Deleted();
-//                                          note_deleted.setTitle(title);
-//                                          note_deleted.setContent(content);
-//                                          note_deleted.setPriority(priority);
-//                                          note_deleted.setUser(user);
-//                                          note_deleted.save(new SaveListener<String>() {
-//                                              @Override
-//                                              public void done(String s, BmobException e) {
-//                                                  if(e==null){
-//                                                     Toast.makeText(getBaseContext(),"删除成功",Toast.LENGTH_SHORT).show();
-//                                                  }else{
-//                                                      Toast.makeText(getBaseContext(),"删除失败" + e.getMessage(),Toast.LENGTH_SHORT).show();
-//                                                  }
-//                                              }
-//                                          });
-//                                      }
-
                                   }
                         ).show();
 
@@ -202,52 +186,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         setStatusBarColor();
         updateView();
-
-
-//        //同步数据到本地
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                SharedPreferencesUtil.init(getApplicationContext());
-//                BmobQuery<Note> query = new BmobQuery<>();
-//                query.addWhereGreaterThanOrEqualTo("id",0);
-//                query.addWhereEqualTo("user",SharedPreferencesUtil.getUsername());
-//                query.order("-id").findObjects(new FindListener<Note>() {
-//                    @Override
-//                    public void done(List<Note> list, BmobException e) {
-//                        if (e==null){
-//
-//                            swipeRefreshLayout.setRefreshing(false);
-//
-//                            dm.deleteAllNote(version++);
-//                            Collections.reverse(list);
-//                            noteDataList = list;
-//
-//                            for (int i = 0; i < list.size(); i++){
-//                                Note position = list.get(i);
-//                                dm.addToDB(position.getTitle(),position.getContent(),position.getTime(),position.getPriority(),position.getClockTime());
-//
-//                            }
-//
-//                            List<Note> showlist = new ArrayList();
-//                            adapter.updataView(list);
-//
-//                            updateView();
-//
-//                            if (list.size() == 0 ){
-//                                Toast.makeText(getApplicationContext(),"你暂时还没有提醒事件",Toast.LENGTH_SHORT).show();
-//                            }else {
-//                                Toast.makeText(getApplicationContext(),"获取数据成功",Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }else {
-//                            swipeRefreshLayout.setRefreshing(false);
-//                            Toast.makeText(getApplicationContext(),"您暂无提醒",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateView();
+            }
+        });
 
     }
 
@@ -324,10 +268,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }).show();
 
                 break;
-
-            case R.id.action_sync:
-                Toast.makeText(getApplicationContext(), "同步数据成功", Toast.LENGTH_SHORT).show();
-                break;
             default:
                 break;
         }
@@ -355,34 +295,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_manage) {
-            // Handle the camera action
-            Toast.makeText(this, "回收站", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, DeletedNoteActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.login_out) {
-            //退出登录逻辑
-            //BmobUser.logOut();
-            //BmobUser.logOut();
-
-//            SharedPreferencesUtil.init(this);
-//            SharedPreferencesUtil.setUsername(null);
-//            SharedPreferencesUtil.setPassword(null);
-//            SharedPreferencesUtil.setIsLogin(false);
-//            dm.deleteAllNote(version++);
-//
-//            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-
+        if (id == R.id.login_out) {
+            Toast.makeText(this, "推出按钮被点击！", Toast.LENGTH_SHORT);
+            finish();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

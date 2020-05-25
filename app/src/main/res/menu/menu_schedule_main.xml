@@ -7,13 +7,8 @@
         android:id="@+id/action_clean"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:title="清除本地所有数据"/>
-
-    <item
-        android:id="@+id/action_sync"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        />
+        android:title="清除本地所有数据"
+        android:visible="false"/>
 <!--    <item-->
 <!--        android:id="@+id/action_sync"-->
 <!--        android:orderInCategory="100"-->

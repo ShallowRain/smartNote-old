@@ -27,11 +27,18 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.core.webview.AgentWebActivity;
+import cn.rainss.smartNote.core.webview.MiddlewareWebViewClient;
+
+import com.just.agentweb.core.AgentWeb;
+import com.just.agentweb.core.client.DefaultWebClient;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.widget.dialog.DialogLoader;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
@@ -60,6 +67,25 @@ public final class Utils {
      * 这里填写你的应用隐私政策网页地址
      */
     private static final String PRIVACY_URL = "https://gitee.com/xuexiangjys/TemplateAppProject/raw/master/LICENSE";
+
+    /**
+     * 创建AgentWeb
+     *
+     * @param fragment
+     * @param viewGroup
+     * @param url
+     * @return
+     */
+    public static AgentWeb createAgentWeb(Fragment fragment, ViewGroup viewGroup, String url) {
+        return AgentWeb.with(fragment)
+                .setAgentWebParent(viewGroup, -1, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+                .useDefaultIndicator(-1, 3)
+                .useMiddlewareWebClient(new MiddlewareWebViewClient())
+                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)
+                .createAgentWeb()
+                .ready()
+                .go(url);
+    }
     /**
      * 显示隐私政策的提示
      *

@@ -133,6 +133,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation files('libs/systembartint-1.0.4.jar')
 
+    //ECharts图表库
+    implementation 'com.github.abel533:ECharts:3.0.0.2'
+
     //bmob
     implementation 'cn.bmob.android:bmob-sdk:3.6.9'
     implementation 'com.squareup.okio:okio:2.1.0'

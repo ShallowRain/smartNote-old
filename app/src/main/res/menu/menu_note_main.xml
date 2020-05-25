@@ -6,5 +6,6 @@
         android:id="@+id/action_new_note"
         android:orderInCategory="100"
         android:title="新建"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:visible="false"/>
 </menu>

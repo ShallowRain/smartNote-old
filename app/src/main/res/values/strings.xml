@@ -20,13 +20,13 @@
     <string name="menu_settings">设置</string>
     <string name="menu_about">关于</string>
 
-    <string name="about_copyright">© %1$s xuexiangjys All rights reserved.</string>
+    <string name="about_copyright">© %1$s 毕业设计专用-底部信息😘.</string>
     <string name="about_item_homepage">访问官网</string>
     <string name="about_item_author_github">关于作者</string>
     <string name="about_item_donation_link">捐赠作者</string>
     <string name="about_item_add_qq_group">QQ交流群</string>
-    <string name="url_project_github">https://github.com/xuexiangjys/TemplateAppProject</string>
-    <string name="url_author_github">https://github.com/xuexiangjys</string>
+    <string name="url_project_github">https://rainss.cn</string>
+    <string name="url_author_github">https://github.com/rainerosion</string>
     <string name="url_donation_link">https://gitee.com/xuexiangjys/Resource/blob/master/doc/sponsor.md</string>
     <string name="url_add_qq_group">http://qm.qq.com/cgi-bin/qm/qr?k=tiP-E6rDf0y77PRNfp2lNVcc9RsglPCM</string>
 
@@ -195,4 +195,5 @@
     <string name="settingtime">请设置时间</string>
     <string name="username">账号</string>
 
+    <string name="menu_chart">统计</string>
 </resources>

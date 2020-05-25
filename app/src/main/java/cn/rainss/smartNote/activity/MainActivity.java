@@ -33,20 +33,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import cn.rainss.smartNote.fragment.AboutFragment;
-import cn.rainss.smartNote.fragment.note.NoteFragment;
-import cn.rainss.smartNote.fragment.SettingsFragment;
-import cn.rainss.smartNote.fragment.type.TypeFragment;
-import cn.rainss.smartNote.fragment.more.MoreFragment;
-import cn.rainss.smartNote.fragment.profile.ProfileFragment;
-import cn.rainss.smartNote.fragment.trending.TrendingFragment;
-import cn.rainss.smartNote.R;
-import cn.rainss.smartNote.core.BaseActivity;
-import cn.rainss.smartNote.core.BaseFragment;
-import cn.rainss.smartNote.utils.Utils;
-import cn.rainss.smartNote.utils.XToastUtils;
-
 import com.xuexiang.xaop.annotation.SingleClick;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.utils.ResUtils;
@@ -56,6 +42,17 @@ import com.xuexiang.xutil.common.ClickUtils;
 import com.xuexiang.xutil.common.CollectionUtils;
 
 import butterknife.BindView;
+import cn.rainss.smartNote.R;
+import cn.rainss.smartNote.core.BaseActivity;
+import cn.rainss.smartNote.core.BaseFragment;
+import cn.rainss.smartNote.fragment.AboutFragment;
+import cn.rainss.smartNote.fragment.SettingsFragment;
+import cn.rainss.smartNote.fragment.note.NoteFragment;
+import cn.rainss.smartNote.fragment.profile.ProfileFragment;
+import cn.rainss.smartNote.fragment.trending.TrendingFragment;
+import cn.rainss.smartNote.fragment.type.TypeFragment;
+import cn.rainss.smartNote.utils.Utils;
+import cn.rainss.smartNote.utils.XToastUtils;
 
 /**
  * 程序主页面,只是一个简单的Tab例子
@@ -91,9 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initViews();
-
         initListeners();
     }
 
@@ -107,9 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         toolbar.setTitle(mTitles[0]);
         toolbar.inflateMenu(R.menu.menu_main);
         toolbar.setOnMenuItemClickListener(this);
-
         initHeader();
-
         //主页内容填充
         BaseFragment[] fragments = new BaseFragment[]{
                 new NoteFragment(),
@@ -133,7 +126,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         // TODO: 2019-10-09 初始化数据
         ivAvatar.setImageResource(R.drawable.ic_default_head);
         tvAvatar.setText(R.string.app_name);
-        tvSign.setText("暂时还没有想好要写啥～～");
+        tvSign.setText("欢迎使用～～");
 
         navHeader.setOnClickListener(this);
     }
@@ -158,7 +151,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         openNewPage(AboutFragment.class);
                         break;
                     case R.id.nav_type:
-                        XToastUtils.toast("分类点击");
+                        //XToastUtils.toast("分类点击");
                         //打开分类页面的Fragment
                         openNewPage(TypeFragment.class);
                         break;
@@ -247,7 +240,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         MenuItem item = bottomNavigation.getMenu().getItem(position);
         toolbar.setTitle(item.getTitle());
         item.setChecked(true);
-
         updateSideNavStatus(item);
     }
 

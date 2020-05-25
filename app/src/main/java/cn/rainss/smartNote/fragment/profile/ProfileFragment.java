@@ -36,8 +36,6 @@ import butterknife.BindView;
  */
 @Page(anim = CoreAnim.none)
 public class ProfileFragment extends BaseFragment implements SuperTextView.OnSuperTextViewClickListener {
-    @BindView(R.id.riv_head_pic)
-    RadiusImageView rivHeadPic;
     @BindView(R.id.menu_settings)
     SuperTextView menuSettings;
     @BindView(R.id.menu_about)

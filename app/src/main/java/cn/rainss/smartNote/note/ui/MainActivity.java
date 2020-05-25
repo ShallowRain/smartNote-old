@@ -11,29 +11,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import cn.rainss.smartNote.R;
-
 import java.util.List;
 
-import cn.rainss.smartNote.behavior.FloatButton;
+import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.note.adapter.MyNoteListAdapter;
 import cn.rainss.smartNote.note.bean.Note;
 import cn.rainss.smartNote.note.db.NoteDao;
 import cn.rainss.smartNote.note.view.SpacesItemDecoration;
-import cn.rainss.smartNote.utils.XToastUtils;
 
 public class MainActivity extends BaseActivity {
     private MyNoteListAdapter mNoteListAdapter;
     private List<Note> noteList;
     private NoteDao noteDao;
+    private long waitTime = 2000;
+    private long touchTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,5 +156,17 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //按返回键时
+    public void onBackPressed() {
+
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - touchTime) >= waitTime) {
+            Toast.makeText(this, R.string.exit, Toast.LENGTH_SHORT).show();
+            touchTime = currentTime;
+        } else {
+            finish();
+        }
     }
 }

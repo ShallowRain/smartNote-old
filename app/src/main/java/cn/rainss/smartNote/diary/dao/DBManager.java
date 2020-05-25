@@ -8,6 +8,8 @@ import cn.rainss.smartNote.diary.model.Diary;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBManager {
     private static DBManager mgr;
@@ -159,6 +161,36 @@ public class DBManager {
 
     public void recoverDiary(String id1) {
         db.execSQL("update diary set diary_type = ? where _id = ?", new String[]{"useful", id1});
+    }
+
+    /**
+     * 获取某个天气的天数
+     * @return
+     */
+    public Map<Integer,Integer> getWeather(){
+        Map<Integer, Integer> data = new HashMap<>();
+        Cursor weatherdb = db.rawQuery("select diary_weather as weather,count(_id) as num from diary group by diary_weather", null);
+        while(weatherdb.moveToNext()){
+            int weather = weatherdb.getInt(0);
+            int num = weatherdb.getInt(1);
+            data.put(weather,num);
+        }
+        return data;
+    }
+
+    /**
+     * 获取某个心情的天数
+     * @return
+     */
+    public Map<Integer,Integer> getMood(){
+        Map<Integer, Integer> data = new HashMap<>();
+        Cursor mooddb = db.rawQuery("select diary_mood as mood,count(_id) as num from diary group by diary_mood", null);
+        while(mooddb.moveToNext()){
+            int mood = mooddb.getInt(0);
+            int num = mooddb.getInt(1);
+            data.put(mood,num);
+        }
+        return data;
     }
 }
             

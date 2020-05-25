@@ -46,7 +46,7 @@ public class UpdateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update);
+        setContentView(R.layout.activity_diary_update);
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         wh = display.getWidth();
