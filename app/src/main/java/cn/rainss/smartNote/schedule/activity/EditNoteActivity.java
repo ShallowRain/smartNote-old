@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.schedule.db.DBManager;
-import cn.rainss.smartNote.schedule.model.Note;
+import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.utils.TimeUtil;
 
 import java.util.Calendar;
@@ -154,12 +154,12 @@ public class EditNoteActivity extends AppCompatActivity implements View.OnClickL
 
     //显示更新的数据
     private void showNoteData(int id) {
-        Note note = dbManager.readData(id);
-        titleEt.setText(note.getTitle());
-        contentEt.setText(note.getContent());
-        settingTime.setText(TimeUtil.transformateFromMilisToDate(note.getClockTime()));
-        clockTime = note.getClockTime();
-        String priority = note.getPriority();
+        Schedule schedule = dbManager.readData(id);
+        titleEt.setText(schedule.getTitle());
+        contentEt.setText(schedule.getContent());
+        settingTime.setText(TimeUtil.transformateFromMilisToDate(schedule.getClockTime()));
+        clockTime = schedule.getClockTime();
+        String priority = schedule.getPriority();
         if (priority.equals("高")){
             high.setChecked(true);
         }else if (priority.equals("中")){

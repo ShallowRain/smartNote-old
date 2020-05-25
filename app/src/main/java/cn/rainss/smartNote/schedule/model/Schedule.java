@@ -5,7 +5,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Note 的 bean 类
  */
-public class Note extends BmobObject {
+public class Schedule extends BmobObject {
 
     private int id;
     private String title;

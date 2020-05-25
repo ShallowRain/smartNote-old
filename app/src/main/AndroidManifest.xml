@@ -1,79 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cn.rainss.smartNote">
+    package="cn.rainss.smartNote"> <!-- 解决项目minSDK与第三方库minSDK不一致情况 -->
+    <uses-sdk tools:overrideLibrary="com.github.ielse.imagewatcher" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- bmob -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- bmob -->
     <!-- 允许联网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 获取wifi网络状态的信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
-    <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <!--进程杀死-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 进程杀死 -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <!--解决项目minSDK与第三方库minSDK不一致情况-->
-    <uses-sdk tools:overrideLibrary="com.github.ielse.imagewatcher"/>
-
 
     <application
-        android:name="cn.rainss.smartNote.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan|stateHidden"
-        android:largeHeap="true"
         tools:ignore="LockedOrientationActivity">
+        <service
+            android:name=".schedule.service.MediaService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity
-            android:name="cn.rainss.smartNote.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launch.App"
             android:windowSoftInputMode="adjustPan|stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="cn.rainss.smartNote.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-
-        <!--通用浏览器-->
+            android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- 通用浏览器 -->
         <activity
-            android:name="cn.rainss.smartNote.core.webview.AgentWebActivity"
+            android:name=".core.webview.AgentWebActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:hardwareAccelerated="true"
             android:label="@string/app_browser_name"
             android:theme="@style/AppTheme">
+
             <!-- Scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -86,10 +76,10 @@
                 <data android:scheme="https" />
                 <data android:scheme="about" />
                 <data android:scheme="javascript" />
-                <!--   设置自己的deeplink   -->
-                <!--                <data-->
-                <!--                    android:host="xxx.com"-->
-                <!--                    android:scheme="xui"/>-->
+                <!-- 设置自己的deeplink -->
+                <!-- <data -->
+                <!-- android:host="xxx.com" -->
+                <!-- android:scheme="xui"/> -->
             </intent-filter>
             <!-- AppLink -->
             <intent-filter
@@ -107,94 +97,90 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="application/xhtml+xml" />
                 <data android:mimeType="application/vnd.wap.xhtml+xml" />
-                <!--   设置自己的applink   -->
-                <!--                <data-->
-                <!--                    android:host="xxx.com"-->
-                <!--                    android:scheme="http"/>-->
-                <!--                <data-->
-                <!--                    android:host="xxx.com"-->
-                <!--                    android:scheme="https"/>-->
+                <!-- 设置自己的applink -->
+                <!-- <data -->
+                <!-- android:host="xxx.com" -->
+                <!-- android:scheme="http"/> -->
+                <!-- <data -->
+                <!-- android:host="xxx.com" -->
+                <!-- android:scheme="https"/> -->
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.rainss.smartNote.note.ui.MainActivity"
+            android:name=".schedule.ui.MainActivity"
             android:label="@string/app_name">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
-            android:name="cn.rainss.smartNote.note.ui.NewActivity"
+            android:name=".schedule.ui.NewActivity"
             android:label="@string/title_activity_new"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="cn.rainss.smartNote.note.ui.NoteActivity"
-            android:label="@string/title_activity_note"/>
-
-        <!--fragment的页面容器-->
+            android:name=".schedule.ui.NoteActivity"
+            android:label="@string/title_activity_note" /> <!-- fragment的页面容器 -->
         <activity
-            android:name="cn.rainss.smartNote.core.BaseActivity"
+            android:name=".core.BaseActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 版本更新提示-->
+            android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- 版本更新提示 -->
         <activity
-            android:name="cn.rainss.smartNote.utils.update.UpdateTipDialog"
+            android:name=".utils.update.UpdateTipDialog"
             android:screenOrientation="portrait"
-            android:theme="@style/DialogTheme" />
-        <!-- Webview拦截提示弹窗-->
+            android:theme="@style/DialogTheme" /> <!-- Webview拦截提示弹窗 -->
         <activity
-            android:name="cn.rainss.smartNote.core.webview.WebViewInterceptDialog"
+            android:name=".core.webview.WebViewInterceptDialog"
             android:screenOrientation="portrait"
-            android:theme="@style/DialogTheme" />
-        <!-- applink的中转页面 -->
+            android:theme="@style/DialogTheme" /> <!-- applink的中转页面 -->
         <activity
-            android:name="cn.rainss.smartNote.core.XPageTransferActivity"
+            android:name=".core.XPageTransferActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="cn.rainss.smartNote.diary.ListActivity"
+            android:name=".diary.ListActivity"
             android:label="@string/title_activity_list" />
         <activity
-            android:name="cn.rainss.smartNote.diary.InsertActivity"
+            android:name=".diary.InsertActivity"
             android:label="@string/title_activity_insert" />
         <activity
-            android:name="cn.rainss.smartNote.diary.InfoActivity"
+            android:name=".diary.InfoActivity"
             android:label="@string/diary_about" />
         <activity
-            android:name="cn.rainss.smartNote.diary.DetailActivity"
+            android:name=".diary.DetailActivity"
             android:label="@string/title_activity_detail" />
         <activity
-            android:name="cn.rainss.smartNote.diary.UpdateActivity"
+            android:name=".diary.UpdateActivity"
             android:label="@string/title_activity_update" />
         <activity
-            android:name="cn.rainss.smartNote.diary.SettingActivity"
+            android:name=".diary.SettingActivity"
             android:label="@string/title_activity_setting" />
         <activity
-            android:name="cn.rainss.smartNote.diary.BackupActivity"
+            android:name=".diary.BackupActivity"
             android:label="@string/title_activity_backup" />
         <activity
-            android:name="cn.rainss.smartNote.diary.TrashActivity"
+            android:name=".diary.TrashActivity"
             android:label="@string/title_activity_trash" />
         <activity
-            android:name="cn.rainss.smartNote.diary.LockActivity"
-            android:label="@string/title_activity_list">
-        </activity>
-        <!--        <activity android:name=".activity.MainActivity"/>-->
-        <activity android:name="cn.rainss.smartNote.schedule.activity.EditNoteActivity" />
-        <activity android:name="cn.rainss.smartNote.schedule.activity.MainActivity" />
-        <activity android:name="cn.rainss.smartNote.schedule.activity.LoginActivity"/>
-        <activity android:name="cn.rainss.smartNote.schedule.activity.SignupActivity"/>
-        <activity android:name="cn.rainss.smartNote.schedule.activity.DeletedNoteActivity"/>
-        <!--屏幕自适应设计图-->
+            android:name=".diary.LockActivity"
+            android:label="@string/title_activity_list" /> <!-- <activity android:name=".activity.MainActivity"/> -->
+        <activity android:name=".schedule.activity.EditNoteActivity" />
+        <activity android:name=".schedule.activity.MainActivity" />
+        <activity android:name=".schedule.activity.LoginActivity" />
+        <activity android:name=".schedule.activity.SignupActivity" />
+        <activity android:name=".schedule.activity.DeletedNoteActivity" /> <!-- 屏幕自适应设计图 -->
         <meta-data
             android:name="design_width_in_dp"
             android:value="360" />
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.sendtion.matisse.fileprovider_note"
@@ -206,10 +192,9 @@
         </provider>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="cn.rainss.smartNote.BmobContentProvider">
+            android:authorities="cn.rainss.smartNote.BmobContentProvider" />
 
-        </provider>
-        <receiver android:name="cn.rainss.smartNote.schedule.receiver.ClockReceiver" />
+        <receiver android:name=".schedule.receiver.ClockReceiver" />
     </application>
 
 </manifest>

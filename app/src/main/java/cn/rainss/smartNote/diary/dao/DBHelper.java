@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 
 public class DBHelper extends SQLiteOpenHelper {
+    //使用本地数据库
     private static final String DATABASE_NAME = Environment.getExternalStorageDirectory() + "/diary/diary.db3";
     private static final int DATABASE_VERSION = 3;
     private static final String CREATE_TABLE_SQL =
@@ -34,7 +35,5 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("alter table diary add diary_type varchar(20)");
             db.execSQL("update diary set diary_type = ?", new String[]{"useful"});
         }
-        System.out.println("--------onUpdate Called--------"
-                + oldVersion + "--->" + newVersion);
     }
 }

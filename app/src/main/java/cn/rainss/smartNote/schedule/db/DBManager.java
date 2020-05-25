@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import cn.rainss.smartNote.schedule.model.Note;
+import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.utils.TimeUtil;
 
 import java.util.List;
@@ -14,17 +15,16 @@ import java.util.List;
 
 public class DBManager {
     private Context context;
-    private NoteDBOpenHelper databaseOpenHelper;
+    private SQLiteOpenHelper sqLiteOpenHelper;
     private SQLiteDatabase dbReader;
     private SQLiteDatabase dbWriter;
     private static DBManager instance;
 
     public DBManager(Context context) {
         this.context = context;
-        databaseOpenHelper = new NoteDBOpenHelper(context);
-        // 创建and/or打开一个数据库
-        dbReader = databaseOpenHelper.getReadableDatabase();
-        dbWriter = databaseOpenHelper.getWritableDatabase();
+        sqLiteOpenHelper = new ScheduleDBOpenHelper(context);
+        dbReader = sqLiteOpenHelper.getReadableDatabase();
+        dbWriter = sqLiteOpenHelper.getWritableDatabase();
     }
 
     //getInstance单例
@@ -39,30 +39,30 @@ public class DBManager {
     public void addToDB(String title, String content, String time, String  priority, Long clockTime) {
         //  组装数据
         ContentValues cv = new ContentValues();
-        cv.put(NoteDBOpenHelper.TITLE, title);
-        cv.put(NoteDBOpenHelper.CONTENT, content);
-        cv.put(NoteDBOpenHelper.TIME, time);
-        cv.put(NoteDBOpenHelper.PRIORITY, priority);
-        cv.put(NoteDBOpenHelper.CLOCKTIME, clockTime);
-        dbWriter.insert(NoteDBOpenHelper.TABLE_NAME, null, cv);
+        cv.put(ScheduleDBOpenHelper.TITLE, title);
+        cv.put(ScheduleDBOpenHelper.CONTENT, content);
+        cv.put(ScheduleDBOpenHelper.TIME, time);
+        cv.put(ScheduleDBOpenHelper.PRIORITY, priority);
+        cv.put(ScheduleDBOpenHelper.CLOCKTIME, clockTime);
+        dbWriter.insert(ScheduleDBOpenHelper.TABLE_NAME, null, cv);
     }
 
     //  读取数据(按照id顺序)
-    public void readFromDBById(List<Note> noteList) {
-        Cursor cursor = dbReader.query(NoteDBOpenHelper.TABLE_NAME, null, null,
+    public void readFromDBById(List<Schedule> scheduleList) {
+        Cursor cursor = dbReader.query(ScheduleDBOpenHelper.TABLE_NAME, null, null,
                 null, null, null, "_id");
         try {
             if (cursor.moveToFirst()){
                  do {
-                    Note note = new Note();
-                    note.setId(cursor.getInt(cursor.getColumnIndex(NoteDBOpenHelper.ID)));
-                    note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.TITLE)));
-                    note.setContent(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.CONTENT)));
-                    note.setTime(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.TIME)));
-                    note.setPriority(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.PRIORITY)));
-                    note.setClockTime(cursor.getLong(cursor.getColumnIndex(NoteDBOpenHelper.CLOCKTIME)));
+                    Schedule schedule = new Schedule();
+                    schedule.setId(cursor.getInt(cursor.getColumnIndex(ScheduleDBOpenHelper.ID)));
+                    schedule.setTitle(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TITLE)));
+                    schedule.setContent(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.CONTENT)));
+                    schedule.setTime(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TIME)));
+                    schedule.setPriority(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.PRIORITY)));
+                    schedule.setClockTime(cursor.getLong(cursor.getColumnIndex(ScheduleDBOpenHelper.CLOCKTIME)));
 //                     Log.d("TAG",note.getId()+"    title"+note.getTitle());
-                     noteList.add(note);
+                     scheduleList.add(schedule);
                  } while (cursor.moveToNext());
             }
             cursor.close();
@@ -73,22 +73,22 @@ public class DBManager {
     }
 
     //  读取数据(按照clockTime顺序)
-    public void readFromDBByClockTime(List<Note> noteList) {
+    public void readFromDBByClockTime(List<Schedule> scheduleList) {
         String currentMilisTime  = TimeUtil.getCurrentMilisTime().toString();
-        Cursor cursor = dbReader.query(NoteDBOpenHelper.TABLE_NAME, null, "clocKTime >= ?",
+        Cursor cursor = dbReader.query(ScheduleDBOpenHelper.TABLE_NAME, null, "clocKTime >= ?",
                 new String[]{currentMilisTime}, null, null, "clocKTime");
         try {
             if (cursor.moveToFirst()){
                 do {
-                    Note note = new Note();
-                    note.setId(cursor.getInt(cursor.getColumnIndex(NoteDBOpenHelper.ID)));
-                    note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.TITLE)));
-                    note.setContent(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.CONTENT)));
-                    note.setTime(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.TIME)));
-                    note.setPriority(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.PRIORITY)));
-                    note.setClockTime(cursor.getLong(cursor.getColumnIndex(NoteDBOpenHelper.CLOCKTIME)));
-                    Log.d("TAG clocktime",note.getId()+"    clockTime"+note.getClockTime());
-                    noteList.add(note);
+                    Schedule schedule = new Schedule();
+                    schedule.setId(cursor.getInt(cursor.getColumnIndex(ScheduleDBOpenHelper.ID)));
+                    schedule.setTitle(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TITLE)));
+                    schedule.setContent(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.CONTENT)));
+                    schedule.setTime(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TIME)));
+                    schedule.setPriority(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.PRIORITY)));
+                    schedule.setClockTime(cursor.getLong(cursor.getColumnIndex(ScheduleDBOpenHelper.CLOCKTIME)));
+                    Log.d("TAG clocktime", schedule.getId()+"    clockTime"+ schedule.getClockTime());
+                    scheduleList.add(schedule);
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -102,37 +102,37 @@ public class DBManager {
     //  更新数据
     public void updateNote(int noteID, String title, String content, String time,String priority, Long clockTime) {
         ContentValues cv = new ContentValues();
-        cv.put(NoteDBOpenHelper.ID, noteID);
-        cv.put(NoteDBOpenHelper.TITLE, title);
-        cv.put(NoteDBOpenHelper.CONTENT, content);
-        cv.put(NoteDBOpenHelper.TIME, time);
-        cv.put(NoteDBOpenHelper.PRIORITY, priority);
-        cv.put(NoteDBOpenHelper.CLOCKTIME, clockTime);
-        dbWriter.update(NoteDBOpenHelper.TABLE_NAME, cv, "_id = ?", new String[]{noteID + ""});
+        cv.put(ScheduleDBOpenHelper.ID, noteID);
+        cv.put(ScheduleDBOpenHelper.TITLE, title);
+        cv.put(ScheduleDBOpenHelper.CONTENT, content);
+        cv.put(ScheduleDBOpenHelper.TIME, time);
+        cv.put(ScheduleDBOpenHelper.PRIORITY, priority);
+        cv.put(ScheduleDBOpenHelper.CLOCKTIME, clockTime);
+        dbWriter.update(ScheduleDBOpenHelper.TABLE_NAME, cv, "_id = ?", new String[]{noteID + ""});
     }
 
     //  删除数据
     public void deleteNote(int noteID) {
-        dbWriter.delete(NoteDBOpenHelper.TABLE_NAME, "_id = ?", new String[]{noteID + ""});
+        dbWriter.delete(ScheduleDBOpenHelper.TABLE_NAME, "_id = ?", new String[]{noteID + ""});
     }
 
     //删除数据库所有数据（通过升级版本实现）
     public void deleteAllNote(int newVersion){
-        databaseOpenHelper.onUpgrade(dbWriter,1, newVersion);
+        sqLiteOpenHelper.onUpgrade(dbWriter,3, newVersion);
     }
 
 
     // 根据id查询数据
-    public Note readData(int noteID) {
+    public Schedule readData(int noteID) {
         Cursor cursor = dbReader.rawQuery("SELECT * FROM schedule WHERE _id = ?", new String[]{noteID + ""});
         cursor.moveToFirst();
-        Note note = new Note();
-        note.setId(cursor.getInt(cursor.getColumnIndex(NoteDBOpenHelper.ID)));
-        note.setPriority(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.PRIORITY)));
-        note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.TITLE)));
-        note.setContent(cursor.getString(cursor.getColumnIndex(NoteDBOpenHelper.CONTENT)));
-        note.setClockTime(cursor.getLong(cursor.getColumnIndex(NoteDBOpenHelper.CLOCKTIME)));
-        return note;
+        Schedule schedule = new Schedule();
+        schedule.setId(cursor.getInt(cursor.getColumnIndex(ScheduleDBOpenHelper.ID)));
+        schedule.setPriority(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.PRIORITY)));
+        schedule.setTitle(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.TITLE)));
+        schedule.setContent(cursor.getString(cursor.getColumnIndex(ScheduleDBOpenHelper.CONTENT)));
+        schedule.setClockTime(cursor.getLong(cursor.getColumnIndex(ScheduleDBOpenHelper.CLOCKTIME)));
+        return schedule;
     }
 
 

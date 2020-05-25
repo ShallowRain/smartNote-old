@@ -90,7 +90,6 @@ public class MyNoteListAdapter extends RecyclerView.Adapter<MyNoteListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        //Log.i(TAG, "###getItemCount: ");
         if (mNotes != null && mNotes.size()>0){
             return mNotes.size();
         }

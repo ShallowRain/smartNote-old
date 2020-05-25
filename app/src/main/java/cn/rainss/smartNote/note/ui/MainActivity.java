@@ -2,10 +2,15 @@ package cn.rainss.smartNote.note.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -85,7 +90,18 @@ public class MainActivity extends BaseActivity {
                     }
                 });
                 builder.setNegativeButton("取消", null);
-                builder.create().show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                Window dialogWindow = dialog.getWindow();
+                WindowManager m = getWindowManager();
+                Display d = m.getDefaultDisplay(); // 获取屏幕宽、高
+                WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+                Point point = new Point();
+                d.getSize(point);
+                // 设置宽度
+                p.width = (int) (point.x * 0.95); // 宽度设置为屏幕的0.95
+                p.gravity = Gravity.CENTER;//设置位置
+                dialogWindow.setAttributes(p);
             }
         });
         //设置浮动按钮点击事件

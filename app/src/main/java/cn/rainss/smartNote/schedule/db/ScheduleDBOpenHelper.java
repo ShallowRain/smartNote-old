@@ -5,9 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class NoteDBOpenHelper extends SQLiteOpenHelper {
+public class ScheduleDBOpenHelper extends SQLiteOpenHelper {
 
-    private static final String sqliteFileName = "rains.db";
+    private static final String sqliteFileName = "schedule.db";
     public static final String TABLE_NAME = "schedule";
     public static final int VERSION = 1;
     public static final String TITLE = "title";
@@ -17,7 +17,7 @@ public class NoteDBOpenHelper extends SQLiteOpenHelper {
     public static final String CLOCKTIME = "clocKTime";
     public static final String ID = "_id";
 
-    public NoteDBOpenHelper(Context context) {
+    public ScheduleDBOpenHelper(Context context) {
         super(context, sqliteFileName, null, VERSION);
     }
 

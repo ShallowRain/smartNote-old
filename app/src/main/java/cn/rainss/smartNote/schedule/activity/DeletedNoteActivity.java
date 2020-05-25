@@ -29,7 +29,7 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.schedule.adapter.DeletedNoteAdapter;
-import cn.rainss.smartNote.schedule.model.Note;
+import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.model.Note_Deleted;
 import cn.rainss.smartNote.schedule.utils.SharedPreferencesUtil;
 
@@ -100,13 +100,13 @@ public class DeletedNoteActivity extends AppCompatActivity {
                                                 @Override
                                                 public void done(BmobException e) {
                                                     if(e==null){
-                                                        Note note = new Note();
-                                                        note.setUser(deletedNotelist.get(position).getUser());
-                                                        note.setTitle(deletedNotelist.get(position).getTitle());
-                                                        note.setContent(deletedNotelist.get(position).getContent());
-                                                        note.setPriority(deletedNotelist.get(position).getPriority());
-                                                        note.setClockTime(0L);
-                                                        note.save(new SaveListener<String>() {
+                                                        Schedule schedule = new Schedule();
+                                                        schedule.setUser(deletedNotelist.get(position).getUser());
+                                                        schedule.setTitle(deletedNotelist.get(position).getTitle());
+                                                        schedule.setContent(deletedNotelist.get(position).getContent());
+                                                        schedule.setPriority(deletedNotelist.get(position).getPriority());
+                                                        schedule.setClockTime(0L);
+                                                        schedule.save(new SaveListener<String>() {
                                                             @Override
                                                             public void done(String s, BmobException e) {
                                                                 adapter.removeItem(position);

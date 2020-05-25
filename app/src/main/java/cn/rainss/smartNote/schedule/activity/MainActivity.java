@@ -1,13 +1,15 @@
 package cn.rainss.smartNote.schedule.activity;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -35,26 +38,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.rainss.smartNote.R;
 import cn.rainss.smartNote.schedule.adapter.ListAdapter;
 import cn.rainss.smartNote.schedule.db.DBManager;
-import cn.rainss.smartNote.schedule.model.Note;
-import cn.rainss.smartNote.schedule.model.Note_Deleted;
+import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.receiver.ClockReceiver;
-import cn.rainss.smartNote.schedule.utils.SharedPreferencesUtil;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingActionButton addBtn;
     private DBManager dm;
-    private List<Note> noteDataList = new ArrayList<>();
+    private List<Schedule> scheduleDataList = new ArrayList<>();
     private ListAdapter adapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -73,35 +68,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_main);
 
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (!Settings.canDrawOverlays(this)) {
+        if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(this)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("获取权限");
+            builder.setMessage("需要获取权限日程功能才能正常使用，请找到该APP选择允许！");
+            builder.setCancelable(false);
+            builder.setPositiveButton("确定", (dialog, which) -> {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(intent, 1);
-            } else {
-                //TODO do something you need
-            }
+            });
+            builder.setNegativeButton("取消", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            Window dialogWindow = dialog.getWindow();
+            WindowManager m = getWindowManager();
+            Display d = m.getDefaultDisplay(); // 获取屏幕宽、高
+            WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+            Point point = new Point();
+            d.getSize(point);
+            // 设置宽度
+            p.width = (int) (point.x * 0.95); // 宽度设置为屏幕的0.95
+            p.gravity = Gravity.CENTER;//设置位置
+            dialogWindow.setAttributes(p);
         }
-
         init();
 
         //第一：默认初始化
         //Bmob.initialize(this, "bdc479c9f78d163df6442083ce8578e8");
 
         //定时闹钟实现
-        List<Note> clockTimeList = new ArrayList<>();
+        List<Schedule> clockTimeList = new ArrayList<>();
         dm = new DBManager(this);
         dm.readFromDBByClockTime(clockTimeList);
-        AlarmManager[] alarmManager = new AlarmManager[clockTimeList.size()+1];
+        AlarmManager[] alarmManager = new AlarmManager[clockTimeList.size() + 1];
         List<PendingIntent> intentArray = new ArrayList<>();
-        for(int i=0; i < clockTimeList.size(); i++){
+        for (int i = 0; i < clockTimeList.size(); i++) {
             //设置定时闹钟
             Intent intent = new Intent(MainActivity.this, ClockReceiver.class);
-            intent.putExtra ("content", clockTimeList.get(i).getContent());
-            pendingIntent = PendingIntent.getBroadcast(this, i , intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            intent.putExtra("content", clockTimeList.get(i).getContent());
+            pendingIntent = PendingIntent.getBroadcast(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager[i].set(AlarmManager.RTC_WAKEUP,clockTimeList.get(i).getClockTime() ,pendingIntent);
+            alarmManager[i].set(AlarmManager.RTC_WAKEUP, clockTimeList.get(i).getClockTime(), pendingIntent);
             intentArray.add(pendingIntent);
         }
 
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //初始化
     private void init() {
         dm = new DBManager(this);
-        dm.readFromDBById(noteDataList);
+        dm.readFromDBById(scheduleDataList);
 
 
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
@@ -135,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addBtn.setOnClickListener(this);
 
         //反向展现数据 新建的note在最上面
-        Collections.reverse(noteDataList);
-        adapter = new ListAdapter(this,noteDataList);
+        Collections.reverse(scheduleDataList);
+        adapter = new ListAdapter(this, scheduleDataList);
         recyclerView.setAdapter(adapter);
 
         //设置布局管理器
@@ -155,8 +163,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onItemLongClick(View view, final int position) {
-                final Note note = adapter.getItem(position);
-                final int id = note.getId();
+                final Schedule schedule = adapter.getItem(position);
+                final int id = schedule.getId();
                 new MaterialDialog.Builder(MainActivity.this)
                         .content(R.string.are_you_sure)
                         .positiveText(R.string.delete)
@@ -282,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_schedule_main, menu);
@@ -319,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.action_sync:
-                Toast.makeText(getApplicationContext(),"同步数据成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "同步数据成功", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -351,11 +358,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.nav_manage) {
             // Handle the camera action
-            Toast.makeText(this,"回收站",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this,DeletedNoteActivity.class);
+            Toast.makeText(this, "回收站", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, DeletedNoteActivity.class);
             startActivity(intent);
 
-        }else if (id == R.id.login_out){
+        } else if (id == R.id.login_out) {
             //退出登录逻辑
             //BmobUser.logOut();
             //BmobUser.logOut();

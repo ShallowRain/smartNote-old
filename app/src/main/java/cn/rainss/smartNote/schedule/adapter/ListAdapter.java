@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cn.rainss.smartNote.R;
-import cn.rainss.smartNote.schedule.model.Note;
+import cn.rainss.smartNote.schedule.model.Schedule;
 import cn.rainss.smartNote.schedule.utils.TimeUtil;
 
 import java.util.ArrayList;
@@ -18,15 +18,15 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-    private List<Note> notes;
+    private List<Schedule> schedules;
     private CountDownTimer timer;
     private Context context;
 
     private ListAdapter.OnItemClickListener onItemClickListener;
 
-    public ListAdapter(Context context,List<Note> notes) {
+    public ListAdapter(Context context,List<Schedule> schedules) {
         this.context = context;
-        this.notes = notes;
+        this.schedules = schedules;
     }
 
     @Override
@@ -40,22 +40,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
         // 绑定数据
-        holder.id.setText(notes.get(position).getId() + "");
-        holder.title.setText(notes.get(position).getTitle());
-        holder.content.setText(notes.get(position).getContent());
-        holder.time.setText("编辑于"+notes.get(position).getTime());
-        holder.priority.setText("优先级："+ notes.get(position).getPriority());
+        holder.id.setText(schedules.get(position).getId() + "");
+        holder.title.setText(schedules.get(position).getTitle());
+        holder.content.setText(schedules.get(position).getContent());
+        holder.time.setText("编辑于"+ schedules.get(position).getTime());
+        holder.priority.setText("优先级："+ schedules.get(position).getPriority());
 
-        if (notes.size() != 0){
+        if (schedules.size() != 0){
             Long currentMilisTime = TimeUtil.getCurrentMilisTime();
-            if (notes.get(position).getClockTime() <= currentMilisTime){
+            if (schedules.get(position).getClockTime() <= currentMilisTime){
                 holder.remaintime.setText("任务已过期");
             }else {
-                timer = new CountDownTimer(notes.get(position).getClockTime(),1000) {
+                timer = new CountDownTimer(schedules.get(position).getClockTime(),1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         holder.remaintime.setText(TimeUtil.transformateFromMilisToStringDate(TimeUtil.getCurrentMilisTime(),
-                                notes.get(position).getClockTime()));
+                                schedules.get(position).getClockTime()));
                     }
 
                     @Override
@@ -95,7 +95,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return notes == null ? 0 : notes.size();
+        return schedules == null ? 0 : schedules.size();
     }
 
     @Override
@@ -104,18 +104,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
     }
 
 
-    public Note getItem(int position) {
-        return notes.get(position);
+    public Schedule getItem(int position) {
+        return schedules.get(position);
     }
 
 
 
 
-    public void updataView(List<Note> newNotes) {
-        if(notes == null) {
-            notes = new ArrayList<>();
+    public void updataView(List<Schedule> newSchedules) {
+        if(schedules == null) {
+            schedules = new ArrayList<>();
         }
-        this.notes = newNotes;
+        this.schedules = newSchedules;
         notifyDataSetChanged();
     }
 
@@ -123,16 +123,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
     public void removeAllItem() {
 
         timer.cancel();
-        notes.clear();
+        schedules.clear();
         notifyDataSetChanged();
     }
 
     //从List移除对象
     public void removeItem(int position) {
-        if(notes == null || notes.isEmpty()) {
+        if(schedules == null || schedules.isEmpty()) {
             return;
         }
-        notes.remove(position);
+        schedules.remove(position);
         timer.cancel();
         notifyItemRemoved(position);
 //        notifyDataSetChanged();
